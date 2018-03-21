@@ -31,8 +31,7 @@ public class CobroEntity implements Serializable{
     private int valorServicio;
     private int tiempoServicio;
     private String descripcionTiempoServicio;
-    @OneToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="id" ,unique=true, nullable= false, updatable= false)
+    @OneToOne(fetch= FetchType.LAZY)    
     private ServicioEntity servicio;    
 	
 	public long getId() {
