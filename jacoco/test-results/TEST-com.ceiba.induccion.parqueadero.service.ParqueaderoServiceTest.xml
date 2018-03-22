@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2018-03-22T21:26:17" hostname="CESAR-AGUIRRE" time="0.002">
+  <properties/>
+  <testcase name="verificarDisponibilidadServicioCarroTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.001"/>
+  <testcase name="verificarDisponibilidadServicioMotoPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
+  <testcase name="verificarDisponibilidadServicioMotoTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
+  <testcase name="verificarDisponibilidadServicioCarroSinCupoDisponibleTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
+  <testcase name="verificarDisponibilidadServicioCarroPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
+  <testcase name="verificarDisponibilidadServicioMotoSinCupoDisponibleTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

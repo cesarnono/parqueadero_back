@@ -5,22 +5,34 @@ import java.sql.Timestamp;
 public abstract class Cobro {
 	
     private Timestamp fechaEntrada ;
-    private Timestamp fechaSalida;
-    private int puesto ;
+    private Timestamp fechaSalida;    
     private String estado;
     private int valorServicio;
     private int tiempoServicio;
     private String descripcionTiempoServicio;
-    private Servicio servicio; 
+    private Servicio servicio;   
+    
+    public Cobro() {
+    	
+    }
+    
+	public Cobro(Timestamp fechaEntrada, Timestamp fechaSalida, String estado, int valorServicio, int tiempoServicio,
+			String descripcionTiempoServicio, Servicio servicio) {
+		super();
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.estado = estado;
+		this.valorServicio = valorServicio;
+		this.tiempoServicio = tiempoServicio;
+		this.descripcionTiempoServicio = descripcionTiempoServicio;
+		this.servicio = servicio;
+	}
 	public Timestamp getFechaEntrada() {
 		return fechaEntrada;
 	}
 	public Timestamp getFechaSalida() {
 		return fechaSalida;
-	}
-	public int getPuesto() {
-		return puesto;
-	}
+	}	
 	public String getEstado() {
 		return estado;
 	}
