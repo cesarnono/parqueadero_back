@@ -18,7 +18,7 @@ apply plugin:'jacoco'
 
 
 group = 'com.ceiba.induccion'
-version = '0.0.1'
+version = '1.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -29,7 +29,7 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('org.springframework.boot:spring-boot-devtools')
+	compile('org.springframework.boot:spring-boot-devtools')
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

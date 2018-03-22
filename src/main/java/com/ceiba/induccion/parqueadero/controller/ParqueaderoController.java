@@ -8,6 +8,6 @@ public class ParqueaderoController {
     
 	@GetMapping("/")
 	public String index() {
-		return "|||||||||Bienvenidos al Parqueadero LOCAL SECURITY---|";
+		return "<div style=\"text-align : center\">Bienvenidos al Parqueadero <h1>SEGURAR</div>";
 	}
 }

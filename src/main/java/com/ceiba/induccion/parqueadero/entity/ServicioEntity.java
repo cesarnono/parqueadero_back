@@ -26,6 +26,21 @@ public class ServicioEntity implements Serializable {
 	private int tarifaHora;
 	private int tarifaDia;	
 	
+	public ServicioEntity() {
+		
+	}
+	
+	public ServicioEntity(String descripcion, int cupoMaximo, int cupoDisponible, int tarifaHora, int tarifaDia) {
+		super();
+		this.descripcion = descripcion;
+		this.cupoMaximo = cupoMaximo;
+		this.cupoDisponible = cupoDisponible;
+		this.tarifaHora = tarifaHora;
+		this.tarifaDia = tarifaDia;
+	}
+
+
+
 	public long getId() {
 		return id;
 	}
