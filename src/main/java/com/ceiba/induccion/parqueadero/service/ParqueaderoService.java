@@ -1,16 +1,20 @@
 package com.ceiba.induccion.parqueadero.service;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.exception.ParqueaderoException;
 import com.ceiba.induccion.parqueadero.model.Cobro;
 import com.ceiba.induccion.parqueadero.model.CobroCarro;
+import com.ceiba.induccion.parqueadero.model.CobroMoto;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
+import com.ceiba.induccion.parqueadero.repository.CobroRepository;
 import com.ceiba.induccion.parqueadero.repository.ServicioRepository;
 import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
@@ -19,6 +23,9 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Autowired
 	ServicioRepository servicioRepository;
+	
+	@Autowired
+	CobroRepository cobroRepository;
 
 	@Override
 	public Servicio verificarDisponibilidadServicio(SolicitudServicio solicitudServicio) {
@@ -39,13 +46,35 @@ public class ParqueaderoService implements IParqueaderoService {
 	}
 
 	@Override
-	public Cobro registrarEntrada(Cobro cobro) {
-
+	public Cobro registrarEntrada(Servicio servicio) {
+		/*CobroEntity cobroEntity = null;
+		if(servicio != null && servicio.getSolicitudServicio()!= null) {
+		    if(servicio.getSolicitudServicio().getTipo().equals(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO)) {		    	
+		    	CobroCarro cobroCarro = new CobroCarro(servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null, ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
+		    	cobroEntity = new CobroEntity(cobroCarro);
+		    }else {
+		    	CobroMoto cobroMoto = new CobroMoto(servicio.getSolicitudServicio().getCilindraje(),servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null, ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
+		    	cobroEntity = new CobroEntity(cobroMoto);
+		    }
+		}
+		cobroRepository.save(cobroEntity);*/
+		
 		return null;
 	}
 
 	@Override
-	public Cobro registrarSalida() {
+	public Cobro registrarSalida(Cobro cobro) {
+		//lo consulto con el id obtendo objCons
+		// creo un nuevo objeto y le seteo la fecha de salida
+		//al nuevo objeto invoco calcular
+		// elimino el objeto consultado
+		// inserto el objeto calculado
+		
+		/*if(cobro instanceof CobroCarro) {
+			
+		}else {
+			
+		}*/
 		return null;
 	}
 

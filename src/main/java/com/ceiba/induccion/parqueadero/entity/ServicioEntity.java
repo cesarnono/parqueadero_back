@@ -44,6 +44,7 @@ public class ServicioEntity implements Serializable {
 	
 	public ServicioEntity(Servicio servicio) {
 		super();
+		this.id = servicio.getId();
 		this.descripcion = servicio.getDescripcion();
 		this.cupoMaximo = servicio.getCantidadMaxima();
 		this.cupoDisponible = servicio.getCupoDisponible();

@@ -16,6 +16,8 @@ public final class ParqueaderoUtil {
 	public static final String SERVICIO_PARQUEO_CARRO = "carro";
 	public static final String SERVICIO_PARQUEO_MOTO = "moto";
 	public static final String PLACA_EMPIEZA_CON_A = "A25-OP1";
+	public static final String COBRO_PENDIENTE = "PENDIENTE";
+	public static final String COBRO_FINLIZADO = "FINALIZADO";
 
 	private ParqueaderoUtil() {
 

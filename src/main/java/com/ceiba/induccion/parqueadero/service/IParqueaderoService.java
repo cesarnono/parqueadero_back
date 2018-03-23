@@ -8,8 +8,8 @@ public interface IParqueaderoService {
 
 	public Servicio verificarDisponibilidadServicio(SolicitudServicio solicitudServicio);
 
-	public Cobro registrarEntrada(Cobro cobro);
+	public Cobro registrarEntrada(Servicio servicio);
 
-	public Cobro registrarSalida();
+	public Cobro registrarSalida(Cobro cobro);
 
 }

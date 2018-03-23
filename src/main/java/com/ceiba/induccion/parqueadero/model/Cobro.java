@@ -1,11 +1,12 @@
 package com.ceiba.induccion.parqueadero.model;
 
-import java.sql.Timestamp;
+
+import java.util.Calendar;
 
 public abstract class Cobro {
 	
-    private Timestamp fechaEntrada ;
-    private Timestamp fechaSalida;    
+    private Calendar fechaEntrada ;
+    private Calendar fechaSalida;    
     private String estado;
     private int valorServicio;
     private int tiempoServicio;
@@ -16,7 +17,7 @@ public abstract class Cobro {
     	
     }
     
-	public Cobro(Timestamp fechaEntrada, Timestamp fechaSalida, String estado, int valorServicio, int tiempoServicio,
+	public Cobro(Calendar fechaEntrada, Calendar fechaSalida, String estado, int valorServicio, int tiempoServicio,
 			String descripcionTiempoServicio, Servicio servicio) {
 		super();
 		this.fechaEntrada = fechaEntrada;
@@ -27,12 +28,7 @@ public abstract class Cobro {
 		this.descripcionTiempoServicio = descripcionTiempoServicio;
 		this.servicio = servicio;
 	}
-	public Timestamp getFechaEntrada() {
-		return fechaEntrada;
-	}
-	public Timestamp getFechaSalida() {
-		return fechaSalida;
-	}	
+		
 	public String getEstado() {
 		return estado;
 	}
@@ -48,7 +44,16 @@ public abstract class Cobro {
     
     public Servicio getServicio() {
 		return servicio;
+	}    
+    
+	public Calendar getFechaEntrada() {
+		return fechaEntrada;
 	}
+
+	public Calendar getFechaSalida() {
+		return fechaSalida;
+	}
+
 	public abstract void calcularValorServicio();
 
 }

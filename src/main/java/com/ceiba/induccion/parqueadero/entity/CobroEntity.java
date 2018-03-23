@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.ceiba.induccion.parqueadero.model.Cobro;
+import com.ceiba.induccion.parqueadero.model.CobroCarro;
+import com.ceiba.induccion.parqueadero.model.CobroMoto;
+
 
 @Entity
 @Table(name="cobro")
@@ -30,9 +34,29 @@ public class CobroEntity implements Serializable{
     private int valorServicio;
     private int tiempoServicio;
     private String descripcionTiempoServicio;
+    private String placa;
+    private String cilindraje;
+    
     @OneToOne(fetch= FetchType.LAZY)    
-    private ServicioEntity servicio;    
-	
+    private ServicioEntity servicio;    	
+    
+    public CobroEntity() {    	
+    }
+    
+    public CobroEntity(Cobro cobro) {
+    	this.servicio = new ServicioEntity(cobro.getServicio());
+    	this.fechaEntrada = cobro.getFechaEntrada();
+    	this.estado  = cobro.getEstado();
+    	if(cobro instanceof CobroCarro){
+    		CobroCarro cobroCarro = (CobroCarro)cobro;
+    		this.placa = cobroCarro.getPlaca();
+    	}
+    	if(cobro instanceof CobroMoto){
+    		CobroMoto cobroMoto= (CobroMoto)cobro;
+    		this.placa = cobroMoto.getPlaca();
+    		this.cilindraje = cobroMoto.getCilindraje();
+    	}
+    }
 	public long getId() {
 		return id;
 	}
@@ -90,5 +114,12 @@ public class CobroEntity implements Serializable{
 	public void setServicio(ServicioEntity servicio) {
 		this.servicio = servicio;
 	}
+	public String getPlaca() {
+		return placa;
+	}
+	public String getCilindraje() {
+		return cilindraje;
+	}
+	
 
 }

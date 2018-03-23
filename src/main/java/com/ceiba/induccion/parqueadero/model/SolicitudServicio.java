@@ -8,7 +8,7 @@ public class SolicitudServicio {
 	private String cilindraje;
 	private String tipo;
 	private String error;	
-	private Date fecha;
+	private Date fecha = new Date();
 	
 	public SolicitudServicio(String placa, String cilindraje, String tipo, String error, Date fecha) {
 		super();

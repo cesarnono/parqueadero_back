@@ -33,8 +33,8 @@ public class ParqueaderoController {
 		return this.parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);		
 	}
 	
-	@PostMapping("/entradaCarro")
-	public Cobro registrarEntradaCarro(@RequestBody CobroCarro cobro) {
+	@PostMapping("/entrada")
+	public Cobro registrarEntradaCarro(@RequestBody Servicio servicio) {
 		return null;
 	}
 	
