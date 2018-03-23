@@ -10,6 +10,7 @@ import com.ceiba.induccion.parqueadero.exception.ParqueaderoException;
 import com.ceiba.induccion.parqueadero.model.Cobro;
 import com.ceiba.induccion.parqueadero.model.CobroCarro;
 import com.ceiba.induccion.parqueadero.model.Servicio;
+import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
 import com.ceiba.induccion.parqueadero.repository.ServicioRepository;
 import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
@@ -20,12 +21,15 @@ public class ParqueaderoService implements IParqueaderoService {
 	ServicioRepository servicioRepository;
 
 	@Override
-	public Servicio verificarDisponibilidadServicio(String placa, String tipoServicio) {
+	public Servicio verificarDisponibilidadServicio(SolicitudServicio solicitudServicio) {
 		Servicio servicio = null;
 		try {
-			servicio = this.verificarCupo(tipoServicio);
-			this.verificarRestriccionAccesoPorPlaca(placa);
-			servicio.setPlacaVehiculo(placa);
+			if (solicitudServicio != null) {
+				servicio = this.verificarCupo(solicitudServicio.getTipo());
+				this.verificarRestriccionAccesoPorPlaca(solicitudServicio.getPlaca(),solicitudServicio.getFecha());
+				servicio.setSolicitudServicio(solicitudServicio);
+			}
+
 		} catch (Exception e) {
 			servicio = new Servicio();
 			servicio.setError(e.getMessage());
@@ -36,7 +40,7 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Override
 	public Cobro registrarEntrada(Cobro cobro) {
-		
+
 		return null;
 	}
 
@@ -47,18 +51,17 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	private Servicio verificarCupo(String tipoServicio) throws ParqueaderoException {
 		Servicio servicio;
-		servicio = this.consultarServicioPorTipo(tipoServicio);
+		servicio = this.consultarServicioPorTipo(tipoServicio);		
 		if (servicio.getCupoDisponible() == 0)
 			throw new ParqueaderoException(ParqueaderoUtil.CUPO_NO_DISPONIBLE);
 
 		return servicio;
 	}
 
-	private void verificarRestriccionAccesoPorPlaca(String placa) throws ParqueaderoException {
+	private void verificarRestriccionAccesoPorPlaca(String placa,Date fecha) throws ParqueaderoException {
 		if (ParqueaderoUtil.getInstance().esPlacaEmpiezaPorA(placa)
-				&& !ParqueaderoUtil.getInstance().esDomingoOLunes(new Date())) {
-			throw new ParqueaderoException(
-					ParqueaderoUtil.NO_ACCESO_PLACA_A);
+				&& !ParqueaderoUtil.getInstance().esDomingoOLunes(fecha)) {
+			throw new ParqueaderoException(ParqueaderoUtil.NO_ACCESO_PLACA_A);
 		}
 	}
 
@@ -69,5 +72,4 @@ public class ParqueaderoService implements IParqueaderoService {
 		}
 		return new Servicio(servicioEntity);
 	}
-
 }

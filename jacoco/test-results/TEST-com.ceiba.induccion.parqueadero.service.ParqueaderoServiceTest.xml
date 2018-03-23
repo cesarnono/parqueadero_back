@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2018-03-22T21:26:17" hostname="CESAR-AGUIRRE" time="0.002">
+<testsuite name="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-03-23T22:08:56" hostname="CESAR-AGUIRRE" time="0.05">
   <properties/>
-  <testcase name="verificarDisponibilidadServicioCarroTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.001"/>
-  <testcase name="verificarDisponibilidadServicioMotoPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
-  <testcase name="verificarDisponibilidadServicioMotoTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
-  <testcase name="verificarDisponibilidadServicioCarroSinCupoDisponibleTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
-  <testcase name="verificarDisponibilidadServicioCarroPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
-  <testcase name="verificarDisponibilidadServicioMotoSinCupoDisponibleTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="verificarDisponibilidadServicioCarroTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.012"/>
+  <testcase name="verificarDisponibilidadServicioMotoPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.003"/>
+  <testcase name="verificarDisponibilidadServicioDomingoOLunesPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.004"/>
+  <testcase name="verificarDisponibilidadServicioMotoTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.003"/>
+  <testcase name="verificarDisponibilidadServicioCarroSinCupoDisponibleTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.003"/>
+  <testcase name="verificarDisponibilidadServicioCarroPlacaA" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.017"/>
+  <testcase name="verificarDisponibilidadServicioMotoSinCupoDisponibleTest" classname="com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest" time="0.002"/>
+  <system-out><![CDATA[2018-03-23 17:08:55.037  INFO 2844 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest], using SpringBootContextLoader
+2018-03-23 17:08:55.037  INFO 2844 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2018-03-23 17:08:55.037  INFO 2844 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest]: ParqueaderoServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2018-03-23 17:08:55.052  INFO 2844 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ceiba.induccion.parqueadero.ParqueaderoApplication for test class com.ceiba.induccion.parqueadero.service.ParqueaderoServiceTest
+2018-03-23 17:08:55.052  INFO 2844 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2018-03-23 17:08:55.052  INFO 2844 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@35138afa, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@63c7a14a, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@11232ae0, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@33799c10, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1a1494df, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4407bb26, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4cfbed6c, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@331d71ff, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@d91b92f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7436fd30, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@67b5fe57, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@3f7ff9d7]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.0.RELEASE)
+
+2018-03-23 17:08:55.099  INFO 2844 --- [    Test worker] c.c.i.p.service.ParqueaderoServiceTest   : Starting ParqueaderoServiceTest on CESAR-AGUIRRE with PID 2844 (started by cesar.aguirre in D:\practice\ceiba\parqueadero)
+2018-03-23 17:08:55.099  INFO 2844 --- [    Test worker] c.c.i.p.service.ParqueaderoServiceTest   : No active profile set, falling back to default profiles: default
+2018-03-23 17:08:55.099  INFO 2844 --- [    Test worker] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@82132bd: startup date [Fri Mar 23 17:08:55 COT 2018]; root of context hierarchy
+2018-03-23 17:08:56.021  INFO 2844 --- [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2ef390be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-03-23 17:08:56.099  INFO 2844 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2018-03-23 17:08:56.099  INFO 2844 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2018-03-23 17:08:56.115  INFO 2844 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-03-23 17:08:56.131  INFO 2844 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-03-23 17:08:56.131  INFO 2844 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2018-03-23 17:08:56.193  INFO 2844 --- [    Test worker] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@160d128'
+2018-03-23 17:08:56.193  INFO 2844 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-03-23 17:08:56.567  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.web.context.support.GenericWebApplicationContext@82132bd: startup date [Fri Mar 23 17:08:55 COT 2018]; root of context hierarchy
+2018-03-23 17:08:56.567  WARN 2844 --- [    Test worker] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-03-23 17:08:56.599  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.ceiba.induccion.parqueadero.controller.ParqueaderoController.index()
+2018-03-23 17:08:56.599  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/disponibilidad],methods=[GET]}" onto public com.ceiba.induccion.parqueadero.model.Servicio com.ceiba.induccion.parqueadero.controller.ParqueaderoController.verificarDisponibilidadServicio(com.ceiba.induccion.parqueadero.model.SolicitudServicio)
+2018-03-23 17:08:56.599  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/entradaMoto],methods=[POST]}" onto public com.ceiba.induccion.parqueadero.model.Cobro com.ceiba.induccion.parqueadero.controller.ParqueaderoController.registrarEntradaMoto(com.ceiba.induccion.parqueadero.model.CobroMoto)
+2018-03-23 17:08:56.599  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/entradaCarro],methods=[POST]}" onto public com.ceiba.induccion.parqueadero.model.Cobro com.ceiba.induccion.parqueadero.controller.ParqueaderoController.registrarEntradaCarro(com.ceiba.induccion.parqueadero.model.CobroCarro)
+2018-03-23 17:08:56.599  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-03-23 17:08:56.599  INFO 2844 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-03-23 17:08:56.630  INFO 2844 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-23 17:08:56.630  INFO 2844 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-23 17:08:56.677  INFO 2844 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-03-23 17:08:56.911  INFO 2844 --- [    Test worker] c.c.i.p.service.ParqueaderoServiceTest   : Started ParqueaderoServiceTest in 1.843 seconds (JVM running for 10.191)
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

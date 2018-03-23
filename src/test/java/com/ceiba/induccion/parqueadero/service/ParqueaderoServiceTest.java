@@ -2,43 +2,65 @@ package com.ceiba.induccion.parqueadero.service;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import static org.mockito.Mockito.when;
 
+import java.util.Calendar;
+
+import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.model.Servicio;
+import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
+import com.ceiba.induccion.parqueadero.repository.ServicioRepository;
 import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class ParqueaderoServiceTest {
-	@Mock
+	@MockBean
+	ServicioRepository servicioRepository;
+	
+	@Autowired
 	ParqueaderoService parqueaderoService;
+	
+    
+    ParqueaderoUtil parqueaderoUtil;
+     
+	
 
 	@Test
 	public void verificarDisponibilidadServicioCarroTest() {
 
 		// Arrange
-		String placa = "125-OP1";		
-		Servicio servicio = new ServicioTestDataBuilder().withDescripcion("carro").build();
+		SolicitudServicio solicitudServicio = new SolicitudServicio("125-OP1", null, ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null,ParqueaderoUtil.getFecha());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO).build();
+		Servicio servicioEsperado = null;
 		try {
-			//
-			when(parqueaderoService.consultarServicioPorTipo(servicio.getDescripcion())).thenReturn(servicio);
-			servicio = parqueaderoService.verificarDisponibilidadServicio(placa, servicio.getDescripcion());
+			//Action			
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO)).thenReturn(new ServicioEntity(servicio));
+		    servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 		} catch (Exception e) {
 
 		}
 		// Assert
-		Assert.assertNotNull(servicio);
-
+		Assert.assertNotNull(servicioEsperado);
 	}
 
 	@Test
 	public void verificarDisponibilidadServicioCarroSinCupoDisponibleTest() {
 		// Arrange
-		String placa = "125-OP1";		
-		Servicio servicio = new ServicioTestDataBuilder().withDescripcion("carro").withCupoDisponible(0).build();
+		SolicitudServicio solicitudServicio = new SolicitudServicio("125-OP1", null, ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null,ParqueaderoUtil.getFecha());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO).withCupoDisponible(0).build();
 		try {
-			//
-			when(parqueaderoService.consultarServicioPorTipo(servicio.getDescripcion())).thenReturn(servicio);
-			servicio = parqueaderoService.verificarDisponibilidadServicio(placa, servicio.getDescripcion());
+			//Action
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO)).thenReturn(new ServicioEntity(servicio));
+			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 			// Assert
 			Assert.assertEquals(ParqueaderoUtil.CUPO_NO_DISPONIBLE,servicio.getError());
 		} catch (Exception e) {
@@ -50,12 +72,13 @@ public class ParqueaderoServiceTest {
 	@Test
 	public void verificarDisponibilidadServicioCarroPlacaA() {
 		// Arrange
-		String placa = "A25-OP1";		
-		Servicio servicio = new ServicioTestDataBuilder().withDescripcion("carro").build();
+		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null, ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null,ParqueaderoUtil.getFecha());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO).build();
 		try {
-			//
-			when(parqueaderoService.consultarServicioPorTipo(servicio.getDescripcion())).thenReturn(servicio);
-			servicio = parqueaderoService.verificarDisponibilidadServicio(placa, servicio.getDescripcion());
+			//Action
+			when(ParqueaderoUtil.getFecha()).thenReturn(ParqueaderoUtil.getFechaDiferenteDomingoYLunes());
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO)).thenReturn(new ServicioEntity(servicio));
+			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 			// Assert
 			Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A,servicio.getError());
 		} catch (Exception e) {
@@ -67,31 +90,30 @@ public class ParqueaderoServiceTest {
 	
 	@Test
 	public void verificarDisponibilidadServicioMotoTest() {
-
-		// Arrange
-		String placa = "125-OP1";		
-		Servicio servicio = new ServicioTestDataBuilder().withDescripcion("moto").build();
+		// Arrange		
+		SolicitudServicio solicitudServicio = new SolicitudServicio("1A5-OP1", null, ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null,ParqueaderoUtil.getFecha());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO).build();
+		Servicio servicioEsperado = null;
 		try {
-			//
-			when(parqueaderoService.consultarServicioPorTipo(servicio.getDescripcion())).thenReturn(servicio);
-			servicio = parqueaderoService.verificarDisponibilidadServicio(placa, servicio.getDescripcion());
+			//Action
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO)).thenReturn(new ServicioEntity(servicio));
+			servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 		} catch (Exception e) {
 
 		}
 		// Assert
-		Assert.assertNotNull(servicio);
-
+		Assert.assertNotNull(servicioEsperado);
 	}
 
 	@Test
 	public void verificarDisponibilidadServicioMotoSinCupoDisponibleTest() {
 		// Arrange
-		String placa = "125-OP1";		
-		Servicio servicio = new ServicioTestDataBuilder().withDescripcion("moto").withCupoDisponible(0).build();
+		SolicitudServicio solicitudServicio = new SolicitudServicio("1A5-OP1", null, ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null,ParqueaderoUtil.getFecha());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO).withCupoDisponible(0).build();
 		try {
-			//
-			when(parqueaderoService.consultarServicioPorTipo(servicio.getDescripcion())).thenReturn(servicio);
-			servicio = parqueaderoService.verificarDisponibilidadServicio(placa, servicio.getDescripcion());
+			//Action
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO)).thenReturn(new ServicioEntity(servicio));
+			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 			// Assert
 			Assert.assertEquals(ParqueaderoUtil.CUPO_NO_DISPONIBLE,servicio.getError());
 		} catch (Exception e) {
@@ -103,18 +125,35 @@ public class ParqueaderoServiceTest {
 	@Test
 	public void verificarDisponibilidadServicioMotoPlacaA() {
 		// Arrange
-		String placa = "A25-OP1";		
-		Servicio servicio = new ServicioTestDataBuilder().withDescripcion("moto").build();
+		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null, ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null,ParqueaderoUtil.getFechaDiferenteDomingoYLunes());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO).build();
 		try {
-			//
-			when(parqueaderoService.consultarServicioPorTipo(servicio.getDescripcion())).thenReturn(servicio);
-			servicio = parqueaderoService.verificarDisponibilidadServicio(placa, servicio.getDescripcion());
+			// Action
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO)).thenReturn(new ServicioEntity(servicio));			
+			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 			// Assert
 			Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A,servicio.getError());
 		} catch (Exception e) {
 		
-		}
+		}		
+	}
+	
+	
+	@Test
+	public void verificarDisponibilidadServicioDomingoOLunesPlacaA() {
+		// Arrange
+		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null, ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null,ParqueaderoUtil.getFechaDomingoOLunes());
+		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO).build();
+		Servicio servicioEsperado= null;
+		try {
+			// Action
+			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO)).thenReturn(new ServicioEntity(servicio));			
+			servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
+			// Assert
+			Assert.assertTrue(servicioEsperado != null && servicioEsperado.getError() == null);
+		} catch (Exception e) {
 		
+		}		
 	}
 
 }

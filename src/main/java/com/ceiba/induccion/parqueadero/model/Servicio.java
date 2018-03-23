@@ -68,4 +68,8 @@ public class Servicio {
 		return solicitudServicio;
 	}
 
+	public void setSolicitudServicio(SolicitudServicio solicitudServicio) {
+		this.solicitudServicio = solicitudServicio;
+	}
+
 }

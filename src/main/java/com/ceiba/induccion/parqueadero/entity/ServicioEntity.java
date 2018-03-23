@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ceiba.induccion.parqueadero.model.Servicio;
+
 @Entity
 @Table(name="servicio")
 public class ServicioEntity implements Serializable {
@@ -37,6 +39,16 @@ public class ServicioEntity implements Serializable {
 		this.cupoDisponible = cupoDisponible;
 		this.tarifaHora = tarifaHora;
 		this.tarifaDia = tarifaDia;
+	}
+	
+	
+	public ServicioEntity(Servicio servicio) {
+		super();
+		this.descripcion = servicio.getDescripcion();
+		this.cupoMaximo = servicio.getCantidadMaxima();
+		this.cupoDisponible = servicio.getCupoDisponible();
+		this.tarifaHora = servicio.getTarifaHora();
+		this.tarifaDia = servicio.getTarifaDia();
 	}
 
 
