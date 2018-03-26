@@ -3,13 +3,20 @@ package com.ceiba.induccion.parqueadero.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cascade;
 
 import com.ceiba.induccion.parqueadero.model.Cobro;
 import com.ceiba.induccion.parqueadero.model.CobroCarro;
@@ -35,16 +42,17 @@ public class CobroEntity implements Serializable{
     private int tiempoServicio;
     private String descripcionTiempoServicio;
     private String placa;
-    private String cilindraje;
+    private String cilindraje;   
+    @ManyToOne(fetch = FetchType.LAZY)    
+    private ServicioEntity servicio;
     
-    @OneToOne(fetch= FetchType.LAZY)    
-    private ServicioEntity servicio;    	
+    @Transient
+    private String error;
     
     public CobroEntity() {    	
     }
     
-    public CobroEntity(Cobro cobro) {
-    	this.servicio = new ServicioEntity(cobro.getServicio());
+    public CobroEntity(Cobro cobro) {    	    	
     	this.fechaEntrada = cobro.getFechaEntrada();
     	this.estado  = cobro.getEstado();
     	if(cobro instanceof CobroCarro){
@@ -56,7 +64,10 @@ public class CobroEntity implements Serializable{
     		this.placa = cobroMoto.getPlaca();
     		this.cilindraje = cobroMoto.getCilindraje();
     	}
-    }
+    	this.servicio = new ServicioEntity();
+    	this.servicio.setId(cobro.getServicio().getId());
+    }    
+   
 	public long getId() {
 		return id;
 	}
@@ -108,18 +119,28 @@ public class CobroEntity implements Serializable{
 	public void setDescripcionTiempoServicio(String descripcionTiempoServicio) {
 		this.descripcionTiempoServicio = descripcionTiempoServicio;
 	}
-	public ServicioEntity getServicio() {
+	/*public ServicioEntity getServicio() {
 		return servicio;
 	}
 	public void setServicio(ServicioEntity servicio) {
 		this.servicio = servicio;
-	}
+	}*/
 	public String getPlaca() {
 		return placa;
 	}
 	public String getCilindraje() {
 		return cilindraje;
 	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+	
+	
 	
 
 }

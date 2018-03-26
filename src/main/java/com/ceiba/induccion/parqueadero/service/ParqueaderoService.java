@@ -2,10 +2,8 @@ package com.ceiba.induccion.parqueadero.service;
 
 import java.util.Calendar;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.exception.ParqueaderoException;
@@ -23,7 +21,7 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Autowired
 	ServicioRepository servicioRepository;
-	
+
 	@Autowired
 	CobroRepository cobroRepository;
 
@@ -33,7 +31,7 @@ public class ParqueaderoService implements IParqueaderoService {
 		try {
 			if (solicitudServicio != null) {
 				servicio = this.verificarCupo(solicitudServicio.getTipo());
-				this.verificarRestriccionAccesoPorPlaca(solicitudServicio.getPlaca(),solicitudServicio.getFecha());
+				this.verificarRestriccionAccesoPorPlaca(solicitudServicio.getPlaca(), solicitudServicio.getFecha());
 				servicio.setSolicitudServicio(solicitudServicio);
 			}
 
@@ -45,49 +43,69 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	}
 
-	@Override
-	public Cobro registrarEntrada(Servicio servicio) {
-		/*CobroEntity cobroEntity = null;
-		if(servicio != null && servicio.getSolicitudServicio()!= null) {
-		    if(servicio.getSolicitudServicio().getTipo().equals(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO)) {		    	
-		    	CobroCarro cobroCarro = new CobroCarro(servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null, ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
-		    	cobroEntity = new CobroEntity(cobroCarro);
-		    }else {
-		    	CobroMoto cobroMoto = new CobroMoto(servicio.getSolicitudServicio().getCilindraje(),servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null, ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
-		    	cobroEntity = new CobroEntity(cobroMoto);
-		    }
+	@Override	
+	public CobroEntity registrarEntrada(Servicio servicio) {
+		CobroEntity cobroEntity = crearCobroEntity(servicio);
+		if (cobroEntity == null) {
+			cobroEntity = new CobroEntity();
+			cobroEntity.setError(ParqueaderoUtil.ERROR_REGISTRAR_ENTRADA);
 		}
-		cobroRepository.save(cobroEntity);*/
-		
-		return null;
+		cobroRepository.save(cobroEntity);
+		return cobroEntity;
+	}
+
+	public CobroEntity crearCobroEntity(Servicio servicio) {
+		CobroEntity cobroEntity = null;
+		Cobro cobro = this.crearCobroEntradaParqueadero(servicio);
+		if (cobro != null) {
+			cobroEntity = new CobroEntity(cobro);
+		}
+		return cobroEntity;
+	}
+
+	private Cobro crearCobroEntradaParqueadero(Servicio servicio) {
+		Cobro cobro = null;
+		if (servicio != null && servicio.getSolicitudServicio().getCilindraje() == null) {
+			cobro = new CobroCarro(servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
+					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
+		} else if (servicio != null && servicio.getSolicitudServicio().getPlaca() == null) {
+			cobro = new CobroMoto(servicio.getSolicitudServicio().getCilindraje(),
+					servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
+					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
+		}
+		return cobro;
 	}
 
 	@Override
-	public Cobro registrarSalida(Cobro cobro) {
-		//lo consulto con el id obtendo objCons
+	public Cobro registrarSalida(String idCobro) {
+		// lo consulto con el id obtendo objCons
 		// creo un nuevo objeto y le seteo la fecha de salida
-		//al nuevo objeto invoco calcular
+		// al nuevo objeto invoco calcular
 		// elimino el objeto consultado
 		// inserto el objeto calculado
+
+		/*
+		 * if(cobro instanceof CobroCarro) {
+		 * 
+		 * }else {
+		 * 
+		 * }
+		 */
 		
-		/*if(cobro instanceof CobroCarro) {
-			
-		}else {
-			
-		}*/
+		//CobroEntity cobroEntity = this.cobroRepository.getOne(idCobro);
 		return null;
 	}
 
 	private Servicio verificarCupo(String tipoServicio) throws ParqueaderoException {
 		Servicio servicio;
-		servicio = this.consultarServicioPorTipo(tipoServicio);		
+		servicio = this.consultarServicioPorTipo(tipoServicio);
 		if (servicio.getCupoDisponible() == 0)
 			throw new ParqueaderoException(ParqueaderoUtil.CUPO_NO_DISPONIBLE);
 
 		return servicio;
 	}
 
-	private void verificarRestriccionAccesoPorPlaca(String placa,Date fecha) throws ParqueaderoException {
+	private void verificarRestriccionAccesoPorPlaca(String placa, Date fecha) throws ParqueaderoException {
 		if (ParqueaderoUtil.getInstance().esPlacaEmpiezaPorA(placa)
 				&& !ParqueaderoUtil.getInstance().esDomingoOLunes(fecha)) {
 			throw new ParqueaderoException(ParqueaderoUtil.NO_ACCESO_PLACA_A);

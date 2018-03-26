@@ -3,15 +3,17 @@ package com.ceiba.induccion.parqueadero.model;
 
 import java.util.Calendar;
 
-public abstract class Cobro {
+public class Cobro {
 	
-    private Calendar fechaEntrada ;
+    private long id;
+	private Calendar fechaEntrada ;
     private Calendar fechaSalida;    
     private String estado;
     private int valorServicio;
     private int tiempoServicio;
     private String descripcionTiempoServicio;
     private Servicio servicio;   
+    private String error;
     
     public Cobro() {
     	
@@ -54,6 +56,19 @@ public abstract class Cobro {
 		return fechaSalida;
 	}
 
-	public abstract void calcularValorServicio();
+	public void calcularValorServicio() {
+		
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+	
+	
+	
 
 }

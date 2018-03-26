@@ -1,24 +1,16 @@
 package com.ceiba.induccion.parqueadero.service;
-
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
+import com.ceiba.induccion.parqueadero.repository.CobroRepository;
 import com.ceiba.induccion.parqueadero.repository.ServicioRepository;
 import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
@@ -32,6 +24,9 @@ public class ParqueaderoServiceTestInt {
 	@Autowired
 	ParqueaderoService parqueaderoService;
 	
+	@Autowired
+	CobroRepository cobroRepository;
+	
     @Before
 	public void setup() {
 		ServicioEntity servicioCarro = servicioRepository.findByDescripcion( ParqueaderoUtil.SERVICIO_PARQUEO_CARRO);
@@ -44,9 +39,7 @@ public class ParqueaderoServiceTestInt {
 		if(servicioMoto == null) {
 			servicioMoto = new ServicioEntity(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, 10, 10, 500, 4000);
 			servicioRepository.save(servicioMoto);
-		}
-		List<ServicioEntity>  list = servicioRepository.findAll();
-		servicioCarro = servicioRepository.findByDescripcion( ParqueaderoUtil.SERVICIO_PARQUEO_CARRO);
+		}		
 	}
 	
 	@Test	
@@ -126,6 +119,26 @@ public class ParqueaderoServiceTestInt {
 		} catch (Exception e) {
 		
 		}		
+	}
+	
+	@Test
+	public void registrarEntradaCarroTest() {
+		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_COMUN, null, ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null,ParqueaderoUtil.getFecha());
+		ServicioEntity servicioEntity =  this.servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO);     
+		Servicio servicio = new ServicioTestDataBuilder().withId(servicioEntity.getId()).withDescripcion(servicioEntity.getDescripcion()).withSolicitudServicio(solicitudServicio).build();
+		CobroEntity cobroEsperado = null;		
+		cobroEsperado = parqueaderoService.registrarEntrada(servicio);		
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getId() != 0);
+	}
+	
+	@Test
+	public void registrarEntradaMotoTest() {
+		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_COMUN, null, ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null,ParqueaderoUtil.getFecha());
+		ServicioEntity servicioEntity =  this.servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO);     
+		Servicio servicio = new ServicioTestDataBuilder().withId(servicioEntity.getId()).withDescripcion(servicioEntity.getDescripcion()).withSolicitudServicio(solicitudServicio).build();
+		CobroEntity cobroEsperado = null;		
+		cobroEsperado = parqueaderoService.registrarEntrada(servicio);		
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getId() != 0);
 	}
 
 }

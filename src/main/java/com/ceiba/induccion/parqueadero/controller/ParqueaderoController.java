@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.model.Cobro;
 import com.ceiba.induccion.parqueadero.model.CobroCarro;
 import com.ceiba.induccion.parqueadero.model.CobroMoto;
@@ -28,24 +29,25 @@ public class ParqueaderoController {
 		return "<div style=\"text-align : center\">Bienvenidos al Parqueadero <h1>SEGURAR</div>";
 	}
 	
-	@GetMapping("/disponibilidad")	
+	@PostMapping("/disponibilidad")	
 	public Servicio verificarDisponibilidadServicio(@RequestBody SolicitudServicio solicitudServicio) {
 		return this.parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);		
 	}
 	
 	@PostMapping("/entrada")
-	public Cobro registrarEntradaCarro(@RequestBody Servicio servicio) {
+	public CobroEntity registrarEntradaCarro(@RequestBody Servicio servicio) {
+		return this.parqueaderoService.registrarEntrada(servicio);		
+	}	
+	
+	
+	@GetMapping("/getAllCobros")
+	public Cobro consultarCobro() {
 		return null;
 	}
 	
-	@PostMapping("/entradaMoto")
-	public Cobro registrarEntradaMoto(@RequestBody CobroMoto cobro) {
-		return null;
-	}
 	
-	
-	
-	public Cobro registrarSalida() {
+	@GetMapping("/salida")
+	public Cobro registrarSalida(@RequestParam ("id") String idCobro) {
 		return null;
 	}
 }

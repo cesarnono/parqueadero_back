@@ -10,6 +10,10 @@ public class SolicitudServicio {
 	private String error;	
 	private Date fecha = new Date();
 	
+	public SolicitudServicio() {
+		
+	}
+	
 	public SolicitudServicio(String placa, String cilindraje, String tipo, String error, Date fecha) {
 		super();
 		this.placa = placa;

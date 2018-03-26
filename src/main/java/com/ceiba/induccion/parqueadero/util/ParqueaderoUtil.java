@@ -18,6 +18,9 @@ public final class ParqueaderoUtil {
 	public static final String PLACA_EMPIEZA_CON_A = "A25-OP1";
 	public static final String COBRO_PENDIENTE = "PENDIENTE";
 	public static final String COBRO_FINLIZADO = "FINALIZADO";
+	public static final String ERROR_REGISTRAR_ENTRADA = "Ocurrio un problema al registrar la entrada";
+	public static final String PLACA_COMUN = "198-CA1";
+	
 
 	private ParqueaderoUtil() {
 

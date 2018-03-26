@@ -26,7 +26,7 @@ public class Servicio {
 		this.tarifaDia = servicioEntity.getTarifaDia();		
 		this.cupoDisponible = servicioEntity.getCupoDisponible();
 	}
-	public Servicio(long id, String descripcion, int cantidadMaxima,int cupoDisponible, int tarifaHora, int tarifaDia, String error) {
+	public Servicio(long id, String descripcion, int cantidadMaxima,int cupoDisponible, int tarifaHora, int tarifaDia, String error, SolicitudServicio solicitudServicio) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -35,6 +35,7 @@ public class Servicio {
 		this.tarifaDia = tarifaDia;
 		this.error = error;
 		this.cupoDisponible = cupoDisponible;
+		this.solicitudServicio = solicitudServicio;
 	}
 
 
