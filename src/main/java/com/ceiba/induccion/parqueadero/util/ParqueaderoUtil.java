@@ -20,6 +20,9 @@ public final class ParqueaderoUtil {
 	public static final String COBRO_FINLIZADO = "FINALIZADO";
 	public static final String ERROR_REGISTRAR_ENTRADA = "Ocurrio un problema al registrar la entrada";
 	public static final String PLACA_COMUN = "198-CA1";
+	public static  final long NUEVE_HORAS = 9;
+	public static  final long DIA_EN_HORAS = 24;
+	
 	
 
 	private ParqueaderoUtil() {
@@ -82,4 +85,29 @@ public final class ParqueaderoUtil {
 		}
 		return date;
 	}
+	
+	public static long calcularTiempoServicioHoras(Calendar fechaEntrada, Calendar fechaSalida) {
+		return (((fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis())/1000)/3600);
+	}
+	
+	/*public static void main(String[] args) {
+		
+		Date dateSalida = new Date();
+		Calendar calendarEntrada = Calendar.getInstance();
+		Calendar calendarSalida = Calendar.getInstance();
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+			String dateInString = "27-03-2018 23:15:56";
+			dateSalida = sdf.parse(dateInString);
+			calendarSalida.setTime(dateSalida);
+			System.out.println("hora entrada : "+calendarEntrada.getTime());
+			System.out.println("hora salida : "+calendarSalida.getTime());
+			long horas = ParqueaderoUtil.calcularTiempoServicioHoras(calendarEntrada, calendarSalida);
+			System.out.println("cantidad de horas --> "+horas);
+			
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
+	}*/
 }

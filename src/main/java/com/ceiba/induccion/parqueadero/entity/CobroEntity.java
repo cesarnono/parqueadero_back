@@ -71,60 +71,39 @@ public class CobroEntity implements Serializable{
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 	public Calendar getFechaEntrada() {
 		return fechaEntrada;
 	}
-	public void setFechaEntrada(Calendar fechaEntrada) {
-		this.fechaEntrada = fechaEntrada;
-	}
+	
 	public Calendar getFechaSalida() {
 		return fechaSalida;
 	}
-	public void setFechaSalida(Calendar fechaSalida) {
-		this.fechaSalida = fechaSalida;
-	}
+	
 	public int getPuesto() {
 		return puesto;
 	}
-	public void setPuesto(int puesto) {
-		this.puesto = puesto;
-	}
+	
 	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+	
 	public int getValorServicio() {
 		return valorServicio;
 	}
-	public void setValorServicio(int valorServicio) {
-		this.valorServicio = valorServicio;
-	}
+	
 	public int getTiempoServicio() {
 		return tiempoServicio;
 	}
-	public void setTiempoServicio(int tiempoServicio) {
-		this.tiempoServicio = tiempoServicio;
-	}
+	
 	public String getDescripcionTiempoServicio() {
 		return descripcionTiempoServicio;
 	}
-	public void setDescripcionTiempoServicio(String descripcionTiempoServicio) {
-		this.descripcionTiempoServicio = descripcionTiempoServicio;
-	}
-	/*public ServicioEntity getServicio() {
+	
+	public ServicioEntity getServicio() {
 		return servicio;
 	}
-	public void setServicio(ServicioEntity servicio) {
-		this.servicio = servicio;
-	}*/
+	
 	public String getPlaca() {
 		return placa;
 	}

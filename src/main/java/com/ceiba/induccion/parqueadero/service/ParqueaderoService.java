@@ -66,10 +66,10 @@ public class ParqueaderoService implements IParqueaderoService {
 	private Cobro crearCobroEntradaParqueadero(Servicio servicio) {
 		Cobro cobro = null;
 		if (servicio != null && servicio.getSolicitudServicio().getCilindraje() == null) {
-			cobro = new CobroCarro(servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
+			cobro = new CobroCarro(-1,servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
 					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
 		} else if (servicio != null && servicio.getSolicitudServicio().getPlaca() == null) {
-			cobro = new CobroMoto(servicio.getSolicitudServicio().getCilindraje(),
+			cobro = new CobroMoto(-1,servicio.getSolicitudServicio().getCilindraje(),
 					servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
 					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
 		}
@@ -77,22 +77,24 @@ public class ParqueaderoService implements IParqueaderoService {
 	}
 
 	@Override
-	public Cobro registrarSalida(String idCobro) {
-		// lo consulto con el id obtendo objCons
-		// creo un nuevo objeto y le seteo la fecha de salida
-		// al nuevo objeto invoco calcular
-		// elimino el objeto consultado
-		// inserto el objeto calculado
-
-		/*
-		 * if(cobro instanceof CobroCarro) {
-		 * 
-		 * }else {
-		 * 
-		 * }
-		 */
+	public Cobro registrarSalida(long idCobro) {	
+		Cobro cobro = null;
+		CobroEntity cobroEntity = this.cobroRepository.getOne(idCobro);
+		if(cobroEntity != null) {
+			if(cobroEntity.getCilindraje() != null) {
+				cobro = new CobroMoto(cobroEntity);
+				cobro.setFechaSalida(Calendar.getInstance());
+				cobro.calcularValorServicio();
+			}else {
+				cobro = new CobroCarro(cobroEntity);
+				cobro.setFechaSalida(Calendar.getInstance());
+				cobro.calcularValorServicio();
+			}
+		    this.cobroRepository.delete(cobroEntity);
+		    CobroEntity cobroEntityFinalizado = new CobroEntity(cobro);
+		    this.cobroRepository.save(cobroEntityFinalizado);
+		}
 		
-		//CobroEntity cobroEntity = this.cobroRepository.getOne(idCobro);
 		return null;
 	}
 

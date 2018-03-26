@@ -3,13 +3,13 @@ package com.ceiba.induccion.parqueadero.model;
 
 import java.util.Calendar;
 
-public class Cobro {
+public abstract class Cobro {
 	
     private long id;
 	private Calendar fechaEntrada ;
     private Calendar fechaSalida;    
     private String estado;
-    private int valorServicio;
+    private long valorServicio;
     private int tiempoServicio;
     private String descripcionTiempoServicio;
     private Servicio servicio;   
@@ -19,7 +19,7 @@ public class Cobro {
     	
     }
     
-	public Cobro(Calendar fechaEntrada, Calendar fechaSalida, String estado, int valorServicio, int tiempoServicio,
+	public Cobro(long id,Calendar fechaEntrada, Calendar fechaSalida, String estado, int valorServicio, int tiempoServicio,
 			String descripcionTiempoServicio, Servicio servicio) {
 		super();
 		this.fechaEntrada = fechaEntrada;
@@ -29,12 +29,15 @@ public class Cobro {
 		this.tiempoServicio = tiempoServicio;
 		this.descripcionTiempoServicio = descripcionTiempoServicio;
 		this.servicio = servicio;
+		this.id = id;
 	}
+	
+	
 		
 	public String getEstado() {
 		return estado;
 	}
-	public int getValorServicio() {
+	public long getValorServicio() {
 		return valorServicio;
 	}
 	public int getTiempoServicio() {
@@ -56,9 +59,7 @@ public class Cobro {
 		return fechaSalida;
 	}
 
-	public void calcularValorServicio() {
-		
-	}
+	public abstract void calcularValorServicio();
 
 	public String getError() {
 		return error;
@@ -67,6 +68,14 @@ public class Cobro {
 	public void setError(String error) {
 		this.error = error;
 	}
+
+	public void setFechaSalida(Calendar fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+
+	public void setValorServicio(long valorServicio) {
+		this.valorServicio = valorServicio;
+	}	
 	
 	
 	

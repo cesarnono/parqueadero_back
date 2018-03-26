@@ -11,6 +11,6 @@ public interface IParqueaderoService {
 
 	public CobroEntity registrarEntrada(Servicio servicio);
 
-	public Cobro registrarSalida(String idCobro);
+	public Cobro registrarSalida(long idCobro);
 
 }
