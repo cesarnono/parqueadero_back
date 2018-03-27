@@ -8,15 +8,15 @@ public class ServicioTestDataBuilder {
 	
 	private static final String DESCRIPCION = "carro";
 	private static final int CUPOMAXIMO = 20;
-	private static final  int TARIFAHORA = 1000;
-	private static final int TARIFADIA = 8000;
+	private static final  long TARIFAHORA = 1000;
+	private static final long TARIFADIA = 8000;
 	private static final int CUPODISPONIBLE = 20;
 	
 	private long id;
 	private String descripcion;
 	private int cupoMaximo;
-	private int tarifaHora;
-	private int tarifaDia;
+	private long tarifaHora;
+	private long tarifaDia;
 	private int cupoDisponible;
 	private String error;
 	private SolicitudServicio solicitudServicio;
@@ -41,12 +41,12 @@ public class ServicioTestDataBuilder {
 		return this;		
 	}
 	
-	public ServicioTestDataBuilder withTarifaHora(int tarifaHora) {
+	public ServicioTestDataBuilder withTarifaHora(long tarifaHora) {
 		this.tarifaHora = tarifaHora;
 		return this;		
 	}
 	
-	public ServicioTestDataBuilder withTarifaDia(int tarifaDia) {
+	public ServicioTestDataBuilder withTarifaDia(long tarifaDia) {
 		this.tarifaDia = tarifaDia;
 		return this;		
 	}

@@ -35,15 +35,14 @@ public class CobroEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private Calendar fechaEntrada;
-	private Calendar fechaSalida;
-	private int puesto;
+	private Calendar fechaSalida;	
 	private String estado;
-    private int valorServicio;
-    private int tiempoServicio;
+    private long valorServicio;
+    private long tiempoServicio;
     private String descripcionTiempoServicio;
     private String placa;
-    private String cilindraje;   
-    @ManyToOne(fetch = FetchType.LAZY)    
+    private int cilindraje;   
+    @ManyToOne(fetch = FetchType.EAGER)    
     private ServicioEntity servicio;
     
     @Transient
@@ -54,7 +53,11 @@ public class CobroEntity implements Serializable{
     
     public CobroEntity(Cobro cobro) {    	    	
     	this.fechaEntrada = cobro.getFechaEntrada();
+    	this.fechaSalida = cobro.getFechaSalida();
     	this.estado  = cobro.getEstado();
+    	this.valorServicio = cobro.getValorServicio();
+    	this.descripcionTiempoServicio = cobro.getDescripcionTiempoServicio();
+    	this.tiempoServicio = cobro.getTiempoServicioHoras();
     	if(cobro instanceof CobroCarro){
     		CobroCarro cobroCarro = (CobroCarro)cobro;
     		this.placa = cobroCarro.getPlaca();
@@ -80,19 +83,15 @@ public class CobroEntity implements Serializable{
 		return fechaSalida;
 	}
 	
-	public int getPuesto() {
-		return puesto;
-	}
-	
 	public String getEstado() {
 		return estado;
 	}
 	
-	public int getValorServicio() {
+	public long getValorServicio() {
 		return valorServicio;
 	}
 	
-	public int getTiempoServicio() {
+	public long getTiempoServicio() {
 		return tiempoServicio;
 	}
 	
@@ -107,7 +106,7 @@ public class CobroEntity implements Serializable{
 	public String getPlaca() {
 		return placa;
 	}
-	public String getCilindraje() {
+	public int getCilindraje() {
 		return cilindraje;
 	}
 
@@ -118,8 +117,5 @@ public class CobroEntity implements Serializable{
 	public void setError(String error) {
 		this.error = error;
 	}
-	
-	
-	
 
 }

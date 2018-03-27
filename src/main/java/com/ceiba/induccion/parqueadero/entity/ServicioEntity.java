@@ -31,11 +31,8 @@ public class ServicioEntity implements Serializable {
 	private String descripcion;
 	private int cupoMaximo;
 	private int cupoDisponible;
-	private int tarifaHora;
-	private int tarifaDia;
-
-	/*@OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<CobroEntity> cobros = new ArrayList<>();*/
+	private long tarifaHora;
+	private long tarifaDia;	
 
 	public ServicioEntity() {
 
@@ -95,7 +92,7 @@ public class ServicioEntity implements Serializable {
 		this.cupoDisponible = cupoDisponible;
 	}
 
-	public int getTarifaHora() {
+	public long getTarifaHora() {
 		return tarifaHora;
 	}
 
@@ -103,7 +100,7 @@ public class ServicioEntity implements Serializable {
 		this.tarifaHora = tarifaHora;
 	}
 
-	public int getTarifaDia() {
+	public long getTarifaDia() {
 		return tarifaDia;
 	}
 

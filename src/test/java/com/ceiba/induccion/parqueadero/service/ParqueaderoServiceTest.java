@@ -4,17 +4,18 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.mockito.Mockito.when;
-
-import java.util.Calendar;
-
+import static org.mockito.Mockito.*;
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
+import com.ceiba.induccion.parqueadero.model.Cobro;
+import com.ceiba.induccion.parqueadero.model.CobroCarro;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
 import com.ceiba.induccion.parqueadero.repository.CobroRepository;
@@ -32,12 +33,7 @@ public class ParqueaderoServiceTest {
 	ParqueaderoService parqueaderoService;
 	
 	@MockBean
-	CobroRepository cobroRepository;
-	
-    
-
-     
-	
+	CobroRepository cobroRepository;	
 
 	@Test
 	public void verificarDisponibilidadServicioCarroTest() {
@@ -187,6 +183,19 @@ public class ParqueaderoServiceTest {
 		CobroEntity cobroEsperado = null;
 		cobroEsperado = parqueaderoService.registrarEntrada(servicio);
 		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getError() != null && ParqueaderoUtil.ERROR_REGISTRAR_ENTRADA.equals( cobroEsperado.getError()));
+	}	
+	
+	@Test
+	public void registrarSalidaCarroCobroPorHorasTest() {	
+		CobroCarro cobroCarro = new CobroTestDataBuilder().buildCarro();
+		CobroEntity cobroEntity    = new CobroEntity(cobroCarro);
+		when(cobroRepository.getOne(1L)).thenReturn(cobroEntity);
+		//
+		doNothing().when(cobroRepository).delete(cobroEntity);
+		when(cobroRepository.save(cobroEntity)).thenReturn(cobroEntity);
+		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() != 0);
+		
 	}
 
 }

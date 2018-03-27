@@ -47,7 +47,7 @@ public class ParqueaderoController {
 	
 	
 	@GetMapping("/salida")
-	public Cobro registrarSalida(@RequestParam ("id") String idCobro) {
-		return null;
+	public Cobro registrarSalida(@RequestParam ("id") Long idCobro) {
+		return this.parqueaderoService.registrarSalida(idCobro);
 	}
 }

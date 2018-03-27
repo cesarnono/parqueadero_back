@@ -7,8 +7,8 @@ public class Servicio {
 	private long id;
 	private String descripcion;
 	private int cantidadMaxima;
-	private int tarifaHora;
-	private int tarifaDia;
+	private long tarifaHora;
+	private long tarifaDia;
 	private int cupoDisponible;
 	private String error;	
 	private SolicitudServicio solicitudServicio;
@@ -26,7 +26,7 @@ public class Servicio {
 		this.tarifaDia = servicioEntity.getTarifaDia();		
 		this.cupoDisponible = servicioEntity.getCupoDisponible();
 	}
-	public Servicio(long id, String descripcion, int cantidadMaxima,int cupoDisponible, int tarifaHora, int tarifaDia, String error, SolicitudServicio solicitudServicio) {
+	public Servicio(long id, String descripcion, int cantidadMaxima,int cupoDisponible, long tarifaHora, long tarifaDia, String error, SolicitudServicio solicitudServicio) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -46,10 +46,10 @@ public class Servicio {
 	public int getCantidadMaxima() {
 		return cantidadMaxima;
 	}
-	public int getTarifaHora() {
+	public long getTarifaHora() {
 		return tarifaHora;
 	}
-	public int getTarifaDia() {
+	public long getTarifaDia() {
 		return tarifaDia;
 	}
 	public String getError() {

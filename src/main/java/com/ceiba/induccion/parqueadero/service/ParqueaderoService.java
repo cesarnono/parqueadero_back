@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.exception.ParqueaderoException;
@@ -40,7 +42,6 @@ public class ParqueaderoService implements IParqueaderoService {
 			servicio.setError(e.getMessage());
 		}
 		return servicio;
-
 	}
 
 	@Override	
@@ -69,33 +70,27 @@ public class ParqueaderoService implements IParqueaderoService {
 			cobro = new CobroCarro(-1,servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
 					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
 		} else if (servicio != null && servicio.getSolicitudServicio().getPlaca() == null) {
-			cobro = new CobroMoto(-1,servicio.getSolicitudServicio().getCilindraje(),
-					servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
+			cobro = new CobroMoto(-1,servicio.getSolicitudServicio().getPlaca(),Integer.parseInt(servicio.getSolicitudServicio().getCilindraje()), Calendar.getInstance(), null,
 					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
 		}
 		return cobro;
 	}
 
 	@Override
+	@Transactional
 	public Cobro registrarSalida(long idCobro) {	
 		Cobro cobro = null;
 		CobroEntity cobroEntity = this.cobroRepository.getOne(idCobro);
-		if(cobroEntity != null) {
-			if(cobroEntity.getCilindraje() != null) {
-				cobro = new CobroMoto(cobroEntity);
-				cobro.setFechaSalida(Calendar.getInstance());
-				cobro.calcularValorServicio();
-			}else {
-				cobro = new CobroCarro(cobroEntity);
-				cobro.setFechaSalida(Calendar.getInstance());
-				cobro.calcularValorServicio();
-			}
+		if(cobroEntity != null) {			
+			cobro = cobroEntity.getCilindraje() != 0 ?  new CobroMoto(cobroEntity):  new CobroCarro(cobroEntity);
+			cobro.setFechaSalida(Calendar.getInstance());
+			cobro.calcularValorServicio();		
 		    this.cobroRepository.delete(cobroEntity);
 		    CobroEntity cobroEntityFinalizado = new CobroEntity(cobro);
 		    this.cobroRepository.save(cobroEntityFinalizado);
-		}
-		
-		return null;
+		    cobro.setId(cobroEntity.getId());
+		}		
+		return cobro;
 	}
 
 	private Servicio verificarCupo(String tipoServicio) throws ParqueaderoException {

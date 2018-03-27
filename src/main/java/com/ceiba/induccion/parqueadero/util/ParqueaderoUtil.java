@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.model.Servicio;
+import com.ceiba.induccion.parqueadero.model.TiempoServicio;
 
 public final class ParqueaderoUtil {
 
@@ -21,7 +22,13 @@ public final class ParqueaderoUtil {
 	public static final String ERROR_REGISTRAR_ENTRADA = "Ocurrio un problema al registrar la entrada";
 	public static final String PLACA_COMUN = "198-CA1";
 	public static  final long NUEVE_HORAS = 9;
+	public static  final long QUINCE_HORAS = 15;
 	public static  final long DIA_EN_HORAS = 24;
+	public static  final long TARIFA_DIA_CARRO = 8000;
+	public static  final long TARIFA_HORA_CARRO = 1000;
+	public static  final long MILISEGUNDOS_HORA = 3600000;
+	public static  final int CILINDRAJE_MOTO_500 =	500;
+	public static  final long RECARGO_CILINDRAJE_MOTO_500 =	2000;
 	
 	
 
@@ -86,28 +93,28 @@ public final class ParqueaderoUtil {
 		return date;
 	}
 	
-	public static long calcularTiempoServicioHoras(Calendar fechaEntrada, Calendar fechaSalida) {
-		return (((fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis())/1000)/3600);
+	public static TiempoServicio calcularTiempoServicio(Calendar fechaEntrada, Calendar fechaSalida) {
+		long totalHorasServicio = ((fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis())/1000)/3600;
+		TiempoServicio tiempoServicio = new TiempoServicio(totalHorasServicio,totalHorasServicio);			
+		if((fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis())% ParqueaderoUtil.MILISEGUNDOS_HORA !=0) {
+			tiempoServicio.setHoraFraccion(1);
+		}
+		return tiempoServicio;
 	}
 	
-	/*public static void main(String[] args) {
-		
-		Date dateSalida = new Date();
-		Calendar calendarEntrada = Calendar.getInstance();
-		Calendar calendarSalida = Calendar.getInstance();
+	
+	public static Calendar getFechaCalendar(String formato , String fecha) {		
+		Date date = new Date();
+		Calendar fechaCalendar = Calendar.getInstance();
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-			String dateInString = "27-03-2018 23:15:56";
-			dateSalida = sdf.parse(dateInString);
-			calendarSalida.setTime(dateSalida);
-			System.out.println("hora entrada : "+calendarEntrada.getTime());
-			System.out.println("hora salida : "+calendarSalida.getTime());
-			long horas = ParqueaderoUtil.calcularTiempoServicioHoras(calendarEntrada, calendarSalida);
-			System.out.println("cantidad de horas --> "+horas);
+			SimpleDateFormat sdf = new SimpleDateFormat(formato);			
+			date = sdf.parse(fecha);
 			
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
-		
-	}*/
+		fechaCalendar.setTime(date);		
+		return fechaCalendar;
+	}
+
 }
