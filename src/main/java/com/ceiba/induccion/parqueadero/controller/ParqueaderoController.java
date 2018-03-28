@@ -5,17 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.model.Cobro;
-import com.ceiba.induccion.parqueadero.model.CobroCarro;
-import com.ceiba.induccion.parqueadero.model.CobroMoto;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
 import com.ceiba.induccion.parqueadero.service.IParqueaderoService;

@@ -1,8 +1,5 @@
 package com.ceiba.induccion.parqueadero.service;
-
 import java.util.Calendar;
-import java.util.Date;
-
 import com.ceiba.induccion.parqueadero.model.CobroCarro;
 import com.ceiba.induccion.parqueadero.model.CobroMoto;
 import com.ceiba.induccion.parqueadero.model.Servicio;
@@ -24,8 +21,7 @@ public class CobroTestDataBuilder {
 	protected long valorServicio;
 	protected long tiempoServicioHoras;
 	protected String descripcionTiempoServicio;
-	private Servicio servicio;
-	private String error;
+	private Servicio servicio;	
 	private String placa;
 	private int cilindraje;
 

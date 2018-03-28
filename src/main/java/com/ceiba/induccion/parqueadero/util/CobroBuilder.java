@@ -22,8 +22,7 @@ public class CobroBuilder {
 	protected long valorServicio;
 	protected long tiempoServicioHoras;
 	protected String descripcionTiempoServicio;
-	private Servicio servicio;
-	private String error;
+	private Servicio servicio;	
 	private String placa;
 	private int cilindraje;
 

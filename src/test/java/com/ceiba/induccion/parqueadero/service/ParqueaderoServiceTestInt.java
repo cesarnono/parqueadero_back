@@ -1,8 +1,6 @@
 package com.ceiba.induccion.parqueadero.service;
 
 import java.util.Calendar;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -35,10 +33,7 @@ public class ParqueaderoServiceTestInt {
 	ParqueaderoService parqueaderoService;
 
 	@Autowired
-	CobroRepository cobroRepository;
-
-	//private long idCobroPendienteCarro;
-	//private long idCobroPendienteMoto;
+	CobroRepository cobroRepository;	
 
 	@Before
 	public void setup() {
@@ -53,28 +48,6 @@ public class ParqueaderoServiceTestInt {
 			servicioMoto = new ServicioEntity(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, 10, 10, 500, 4000);
 			servicioRepository.save(servicioMoto);
 		}
-
-		/*if (idCobroPendienteCarro == 0 && idCobroPendienteMoto == 0) {
-			CobroCarro cobroCarro = new CobroTestDataBuilder()
-					.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5))
-					.withFechaSalida(null).whithEstado("PENDIENTE").withServicio(new Servicio(servicioCarro))
-					.buildCarro();
-
-			CobroEntity cobroEntity = new CobroEntity(cobroCarro);
-			cobroRepository.save(cobroEntity);
-			idCobroPendienteCarro = cobroEntity.getId();
-
-			CobroMoto cobroMoto = new CobroTestDataBuilder().withPlaca(ParqueaderoUtil.PLACA_COMUN_MOTO)
-					.withCilindraje(200)
-					.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5))
-					.withFechaSalida(null).whithEstado("PENDIENTE").withServicio(new Servicio(servicioMoto))
-					.buildMoto();
-
-			CobroEntity cobroEntity2 = new CobroEntity(cobroMoto);
-			cobroRepository.save(cobroEntity2);
-			idCobroPendienteMoto = cobroEntity2.getId();
-		}*/
-
 	}
 
 	@Test
