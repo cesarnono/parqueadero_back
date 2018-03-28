@@ -49,18 +49,6 @@ public class CobroMoto extends Cobro {
 		
 	}
 	
-	
-	/*public static void main(String[] args) {
-		Servicio servicio = new ServicioTestDataBuilder().build();
-		CobroMoto cobroMoto = new CobroMoto(-1, null,500,
-				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "18-03-2018 01:00:00"),
-				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "20-03-2018 14:10:00"), null, 0, 0, null,
-				servicio);
-		cobroMoto.calcularValorServicio();
-		System.out.println(cobroMoto.getDescripcionTiempoFacturado());
-
-	}*/
-	
 	public void aplicarRecargoCilindraje() {
 		this.valorServicio = this.cilindraje > ParqueaderoUtil.CILINDRAJE_MOTO_500 ? this.valorServicio +ParqueaderoUtil.RECARGO_CILINDRAJE_MOTO_500: this.valorServicio;
 	}

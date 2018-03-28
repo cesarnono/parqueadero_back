@@ -113,18 +113,7 @@ public class Cobro {
 			valor = this.getServicio().getTarifaDia() + calcularValorServicioRecursivo(tiempoServicio, dias);
 		}
 		return valor;
-	}
-
-	/*public static void main(String[] args) {
-		Servicio servicio = new ServicioTestDataBuilder().build();
-		CobroCarro cobroCarro = new CobroCarro(-1, null,
-				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "26-03-2018 01:00:00"),
-				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "28-03-2018 09:59:00"), null, 0, 0, null,
-				servicio);
-		cobroCarro.calcularValorServicio();
-		System.out.println(cobroCarro.getDescripcionTiempoFacturado());
-
-	}*/
+	}	
 
 	public String getDescripcionTiempoFacturado() {
 		StringBuilder consola = new StringBuilder();

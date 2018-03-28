@@ -59,9 +59,7 @@ public class CobroEntity implements Serializable{
     		CobroMoto cobroMoto= (CobroMoto)cobro;
     		this.placa = cobroMoto.getPlaca();
     		this.cilindraje = cobroMoto.getCilindraje();
-    	}
-    	//this.servicio = new ServicioEntity();
-    	//this.servicio.setId(cobro.getServicio().getId());
+    	}    	
     	this.servicio = new ServicioEntity(cobro.getServicio());
     	
     }    

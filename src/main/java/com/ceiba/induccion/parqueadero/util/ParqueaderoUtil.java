@@ -64,7 +64,7 @@ public final class ParqueaderoUtil {
 	}
 
 	public boolean esPlacaEmpiezaPorA(String placa) {
-		return placa.toUpperCase().indexOf("A") == 0;
+		return placa.toUpperCase().indexOf('A') == 0;
 	}
 
 	public static Date getFecha() {
