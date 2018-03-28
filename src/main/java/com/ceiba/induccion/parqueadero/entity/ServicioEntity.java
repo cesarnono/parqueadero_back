@@ -54,6 +54,7 @@ public class ServicioEntity implements Serializable {
 		this.cupoDisponible = servicio.getCupoDisponible();
 		this.tarifaHora = servicio.getTarifaHora();
 		this.tarifaDia = servicio.getTarifaDia();
+		this.id   = servicio.getId();
 	}
 
 	public long getId() {

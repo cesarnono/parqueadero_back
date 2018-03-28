@@ -3,8 +3,6 @@ package com.ceiba.induccion.parqueadero.model;
 import java.util.Calendar;
 
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
-import com.ceiba.induccion.parqueadero.service.ServicioTestDataBuilder;
-import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
 public class CobroCarro extends Cobro {
 	private String placa;

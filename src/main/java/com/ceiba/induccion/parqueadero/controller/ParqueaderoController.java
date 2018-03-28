@@ -1,6 +1,9 @@
 package com.ceiba.induccion.parqueadero.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,29 +26,31 @@ public class ParqueaderoController {
 	@Autowired
 	IParqueaderoService parqueaderoService;
 	
-	
+	@CrossOrigin
 	@GetMapping("/")
 	public String index() {
 		return "<div style=\"text-align : center\">Bienvenidos al Parqueadero <h1>SEGURAR</div>";
 	}
 	
+	@CrossOrigin
 	@PostMapping("/disponibilidad")	
 	public Servicio verificarDisponibilidadServicio(@RequestBody SolicitudServicio solicitudServicio) {
 		return this.parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);		
 	}
 	
+	@CrossOrigin
 	@PostMapping("/entrada")
 	public CobroEntity registrarEntradaCarro(@RequestBody Servicio servicio) {
 		return this.parqueaderoService.registrarEntrada(servicio);		
 	}	
 	
-	
+	@CrossOrigin
 	@GetMapping("/getAllCobros")
-	public Cobro consultarCobro() {
-		return null;
+	public List<CobroEntity> consultarCobros(@RequestParam("estado") String estado) {
+		return this.parqueaderoService.consultarCobros(estado);
 	}
 	
-	
+	@CrossOrigin
 	@GetMapping("/salida")
 	public Cobro registrarSalida(@RequestParam ("id") Long idCobro) {
 		return this.parqueaderoService.registrarSalida(idCobro);

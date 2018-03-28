@@ -18,16 +18,20 @@ public final class ParqueaderoUtil {
 	public static final String SERVICIO_PARQUEO_MOTO = "moto";
 	public static final String PLACA_EMPIEZA_CON_A = "A25-OP1";
 	public static final String COBRO_PENDIENTE = "PENDIENTE";
-	public static final String COBRO_FINLIZADO = "FINALIZADO";
+	public static final String COBRO_FINALIZADO = "FINALIZADO";
 	public static final String ERROR_REGISTRAR_ENTRADA = "Ocurrio un problema al registrar la entrada";
 	public static final String PLACA_COMUN = "198-CA1";
+	public static final String PLACA_COMUN_MOTO = "196-AV0";
 	public static  final long NUEVE_HORAS = 9;
 	public static  final long QUINCE_HORAS = 15;
 	public static  final long DIA_EN_HORAS = 24;
 	public static  final long TARIFA_DIA_CARRO = 8000;
 	public static  final long TARIFA_HORA_CARRO = 1000;
+	public static  final long TARIFA_DIA_MOTO = 4000;
+	public static  final long TARIFA_HORA_MOTO = 500;
 	public static  final long MILISEGUNDOS_HORA = 3600000;
 	public static  final int CILINDRAJE_MOTO_500 =	500;
+	public static  final int CILINDRAJE_MOTO_550 =	550;
 	public static  final long RECARGO_CILINDRAJE_MOTO_500 =	2000;
 	
 	
@@ -115,6 +119,11 @@ public final class ParqueaderoUtil {
 		}
 		fechaCalendar.setTime(date);		
 		return fechaCalendar;
+	}
+	
+	public static Calendar  restarHorasCalendar(Calendar calendar ,int restar) {
+		calendar.add(Calendar.HOUR,restar);
+		return calendar;
 	}
 
 }

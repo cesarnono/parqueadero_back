@@ -3,7 +3,6 @@ package com.ceiba.induccion.parqueadero.model;
 import java.util.Calendar;
 
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
-import com.ceiba.induccion.parqueadero.service.ServicioTestDataBuilder;
 import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
 public class CobroMoto extends Cobro {
@@ -16,7 +15,7 @@ public class CobroMoto extends Cobro {
 		super();
 	}
     
-	public CobroMoto(long id,String placa,int cilindraje,Calendar fechaEntrada, Calendar fechaSalida, String estado, int valorServicio, int tiempoServicio,
+	public CobroMoto(long id,String placa,int cilindraje,Calendar fechaEntrada, Calendar fechaSalida, String estado, long valorServicio, long tiempoServicio,
 			String descripcionTiempoServicio, Servicio servicio) {
     	
     	 super(id,fechaEntrada,fechaSalida,estado,valorServicio,tiempoServicio,descripcionTiempoServicio,servicio);

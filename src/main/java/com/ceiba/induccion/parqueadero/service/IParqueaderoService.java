@@ -1,5 +1,7 @@
 package com.ceiba.induccion.parqueadero.service;
 
+import java.util.List;
+
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.model.Cobro;
 import com.ceiba.induccion.parqueadero.model.Servicio;
@@ -12,5 +14,7 @@ public interface IParqueaderoService {
 	public CobroEntity registrarEntrada(Servicio servicio);
 
 	public Cobro registrarSalida(long idCobro);
+	
+	public List<CobroEntity>  consultarCobros(String estado);
 
 }

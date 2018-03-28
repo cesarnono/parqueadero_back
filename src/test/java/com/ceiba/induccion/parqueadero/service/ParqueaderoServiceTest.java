@@ -11,11 +11,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.mockito.Mockito.when;
+
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.mockito.Mockito.*;
 import com.ceiba.induccion.parqueadero.entity.CobroEntity;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.model.Cobro;
 import com.ceiba.induccion.parqueadero.model.CobroCarro;
+import com.ceiba.induccion.parqueadero.model.CobroMoto;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
 import com.ceiba.induccion.parqueadero.repository.CobroRepository;
@@ -186,16 +191,70 @@ public class ParqueaderoServiceTest {
 	}	
 	
 	@Test
-	public void registrarSalidaCarroCobroPorHorasTest() {	
+	public void registrarSalidaCarroCobroTest() {	
 		CobroCarro cobroCarro = new CobroTestDataBuilder().buildCarro();
 		CobroEntity cobroEntity    = new CobroEntity(cobroCarro);
-		when(cobroRepository.getOne(1L)).thenReturn(cobroEntity);
-		//
+		when(cobroRepository.findById(1L)).thenReturn(cobroEntity);		
 		doNothing().when(cobroRepository).delete(cobroEntity);
 		when(cobroRepository.save(cobroEntity)).thenReturn(cobroEntity);
+		when(cobroRepository.actualizarEstadoCobro("FINALIZADA", 1L)).thenReturn(1);
+		when(servicioRepository.aumentarCupoDisponible(1L)).thenReturn(1);
+		//
 		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);
-		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() != 0);
-		
+		//
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() != 0);		
+	}
+	
+	
+	@Test
+	public void registrarSalidaCarroCobroCincoHorasTest() {	
+		CobroCarro cobroCarro = new CobroTestDataBuilder().withFechaSalida(Calendar.getInstance()).withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5)).buildCarro();		
+		CobroEntity cobroEntity    = new CobroEntity(cobroCarro);
+		when(cobroRepository.findById(1L)).thenReturn(cobroEntity);		
+		doNothing().when(cobroRepository).delete(cobroEntity);
+		when(cobroRepository.save(cobroEntity)).thenReturn(cobroEntity);
+		when(cobroRepository.actualizarEstadoCobro("FINALIZADA", 1L)).thenReturn(1);
+		when(servicioRepository.aumentarCupoDisponible(1L)).thenReturn(1);
+		//
+		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);
+		//
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == (ParqueaderoUtil.TARIFA_HORA_CARRO*5));		
+	}
+	
+	
+	@Test
+	public void registrarSalidaCarroCobroNueveHorasTest() {	
+		CobroCarro cobroCarro = new CobroTestDataBuilder().withFechaSalida(Calendar.getInstance()).withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -9)).buildCarro();		
+		CobroEntity cobroEntity    = new CobroEntity(cobroCarro);
+		when(cobroRepository.findById(1L)).thenReturn(cobroEntity);		
+		doNothing().when(cobroRepository).delete(cobroEntity);
+		when(cobroRepository.save(cobroEntity)).thenReturn(cobroEntity);
+		when(cobroRepository.actualizarEstadoCobro("FINALIZADA", 1L)).thenReturn(1);
+		when(servicioRepository.aumentarCupoDisponible(1L)).thenReturn(1);		
+		//
+		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);		
+		//
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == (ParqueaderoUtil.TARIFA_DIA_CARRO*1));		
+	}
+	
+	@Test
+	public void registrarSalidaMotoCilindraje550CobroCincoHorasTest() {	
+		Cobro  cobroMoto = new CobroTestDataBuilder()
+				.withFechaSalida(Calendar.getInstance()).withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5))
+				.withServicio( new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO)
+				.withCupoMaximo(20).withTarifaDia(ParqueaderoUtil.TARIFA_DIA_MOTO)
+				.withTarifaHora(ParqueaderoUtil.TARIFA_HORA_MOTO).build())
+				.withCilindraje(ParqueaderoUtil.CILINDRAJE_MOTO_550).buildMoto();		
+		CobroEntity cobroEntity    = new CobroEntity(cobroMoto);
+		when(cobroRepository.findById(1L)).thenReturn(cobroEntity);		
+		doNothing().when(cobroRepository).delete(cobroEntity);
+		when(cobroRepository.save(cobroEntity)).thenReturn(cobroEntity);
+		when(cobroRepository.actualizarEstadoCobro("FINALIZADA", 1L)).thenReturn(1);
+		when(servicioRepository.aumentarCupoDisponible(1L)).thenReturn(1);
+		//
+		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);
+		//
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == ((ParqueaderoUtil.TARIFA_HORA_MOTO*5)+ParqueaderoUtil.RECARGO_CILINDRAJE_MOTO_500));		
 	}
 
 }

@@ -2,6 +2,7 @@ package com.ceiba.induccion.parqueadero.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -67,8 +68,10 @@ public class CobroEntity implements Serializable{
     		this.placa = cobroMoto.getPlaca();
     		this.cilindraje = cobroMoto.getCilindraje();
     	}
-    	this.servicio = new ServicioEntity();
-    	this.servicio.setId(cobro.getServicio().getId());
+    	//this.servicio = new ServicioEntity();
+    	//this.servicio.setId(cobro.getServicio().getId());
+    	this.servicio = new ServicioEntity(cobro.getServicio());
+    	
     }    
    
 	public long getId() {

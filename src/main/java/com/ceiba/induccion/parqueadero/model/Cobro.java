@@ -1,8 +1,6 @@
 package com.ceiba.induccion.parqueadero.model;
 
 import java.util.Calendar;
-
-import com.ceiba.induccion.parqueadero.service.ServicioTestDataBuilder;
 import com.ceiba.induccion.parqueadero.util.ParqueaderoUtil;
 
 public class Cobro {
@@ -31,7 +29,7 @@ public class Cobro {
 		this.tiempoServicioHoras = tiempoServicio;
 		this.descripcionTiempoServicio = descripcionTiempoServicio;
 		this.servicio = servicio;
-		this.id = id;
+		this.id = id;	
 	}
 
 	public String getEstado() {
@@ -62,7 +60,7 @@ public class Cobro {
 		return fechaSalida;
 	}
 
-	public void calcularValorServicio() {
+	public void calcularValorServicio() {		
 		TiempoServicio tiempoServicio = ParqueaderoUtil.calcularTiempoServicio(this.getFechaEntrada(),
 				this.getFechaSalida());
 		long valorTotalServicio = this.calcularValorServicioRecursivo(tiempoServicio, 0);
@@ -80,7 +78,9 @@ public class Cobro {
 	}
 
 	public void setFechaSalida(Calendar fechaSalida) {
-		this.fechaSalida = fechaSalida;
+		if(this.fechaSalida == null) {
+			this.fechaSalida = fechaSalida;
+		}		
 	}
 
 	public void setValorServicio(long valorServicio) {
@@ -115,16 +115,16 @@ public class Cobro {
 		return valor;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Servicio servicio = new ServicioTestDataBuilder().build();
 		CobroCarro cobroCarro = new CobroCarro(-1, null,
-				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "18-03-2018 01:00:00"),
-				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "20-03-2018 14:10:00"), null, 0, 0, null,
+				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "26-03-2018 01:00:00"),
+				ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss", "28-03-2018 09:59:00"), null, 0, 0, null,
 				servicio);
 		cobroCarro.calcularValorServicio();
 		System.out.println(cobroCarro.getDescripcionTiempoFacturado());
 
-	}
+	}*/
 
 	public String getDescripcionTiempoFacturado() {
 		StringBuilder consola = new StringBuilder();
