@@ -37,7 +37,8 @@ public final class ParqueaderoUtil {
 	public static  final int CILINDRAJE_MOTO_500 =	500;
 	public static  final int CILINDRAJE_MOTO_550 =	550;
 	public static  final long RECARGO_CILINDRAJE_MOTO_500 =	2000;
-	private static final Logger logger = LoggerFactory.getLogger(ParqueaderoService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ParqueaderoUtil.class);
+	public static  final long MILISEGUNDOS_MINUTO = 60000;
 
 	private ParqueaderoUtil() {
 
@@ -100,10 +101,12 @@ public final class ParqueaderoUtil {
 		return date;
 	}
 	
-	public static TiempoServicio calcularTiempoServicio(Calendar fechaEntrada, Calendar fechaSalida) {
+	public static TiempoServicio calcularTiempoServicio(Calendar fechaEntrada, Calendar fechaSalida) {		
 		long totalHorasServicio = ((fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis())/1000)/3600;
-		TiempoServicio tiempoServicio = new TiempoServicio(totalHorasServicio,totalHorasServicio);			
-		if((fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis())% ParqueaderoUtil.MILISEGUNDOS_HORA !=0) {
+		TiempoServicio tiempoServicio = new TiempoServicio(totalHorasServicio,totalHorasServicio);	
+		long milisegundosServicio = (fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis());
+		long miliSegundosFraccion = milisegundosServicio % ParqueaderoUtil.MILISEGUNDOS_HORA;
+		if( miliSegundosFraccion !=0 && miliSegundosFraccion >= ParqueaderoUtil.MILISEGUNDOS_MINUTO ) {
 			tiempoServicio.setHoraFraccion(1);
 		}
 		return tiempoServicio;

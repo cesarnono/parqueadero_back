@@ -39,6 +39,7 @@ public class CobroMoto extends Cobro {
 
 	@Override
 	public void calcularValorServicio() {
+		this.fechaSalida = Calendar.getInstance();
 		TiempoServicio tiempoServicio = ParqueaderoUtil.calcularTiempoServicio(this.getFechaEntrada(),
 				this.getFechaSalida());
 		long valorTotalServicio = this.calcularValorServicioRecursivo(tiempoServicio, 0);

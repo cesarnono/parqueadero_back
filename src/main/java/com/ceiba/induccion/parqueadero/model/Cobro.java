@@ -7,7 +7,7 @@ public class Cobro {
 
 	private long id;
 	private Calendar fechaEntrada;
-	private Calendar fechaSalida;
+	protected Calendar fechaSalida;
 	private String estado;
 	protected long valorServicio;
 	protected long tiempoServicioHoras;
@@ -61,12 +61,14 @@ public class Cobro {
 	}
 
 	public void calcularValorServicio() {		
+		this.fechaSalida = Calendar.getInstance();
 		TiempoServicio tiempoServicio = ParqueaderoUtil.calcularTiempoServicio(this.getFechaEntrada(),
 				this.getFechaSalida());
 		long valorTotalServicio = this.calcularValorServicioRecursivo(tiempoServicio, 0);
 		this.valorServicio = this.aplicarHorasFraccion(tiempoServicio, valorTotalServicio);
 		this.descripcionTiempoServicio = tiempoServicio.obtenerTiempoFacturado();
 		this.tiempoServicioHoras = tiempoServicio.getTotalHoras() + tiempoServicio.getHoraFraccion();
+		
 	}
 
 	public String getError() {
@@ -76,17 +78,7 @@ public class Cobro {
 	public void setError(String error) {
 		this.error = error;
 	}
-
-	public void setFechaSalida(Calendar fechaSalida) {
-		if(this.fechaSalida == null) {
-			this.fechaSalida = fechaSalida;
-		}		
-	}
-
-	public void setValorServicio(long valorServicio) {
-		this.valorServicio = valorServicio;
-	}
-
+	
 	public long getId() {
 		return id;
 	}

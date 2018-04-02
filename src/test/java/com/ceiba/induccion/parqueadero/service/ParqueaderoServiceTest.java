@@ -246,8 +246,9 @@ public class ParqueaderoServiceTest {
 		when(servicioRepository.aumentarCupoDisponible(1L)).thenReturn(1);
 		//
 		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);
+		long valorServicio = ((ParqueaderoUtil.TARIFA_HORA_MOTO*5)+ParqueaderoUtil.RECARGO_CILINDRAJE_MOTO_500);
 		//
-		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == ((ParqueaderoUtil.TARIFA_HORA_MOTO*5)+ParqueaderoUtil.RECARGO_CILINDRAJE_MOTO_500));		
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == valorServicio);		
 	}
 
 }

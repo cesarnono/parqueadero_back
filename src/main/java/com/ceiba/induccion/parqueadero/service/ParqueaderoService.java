@@ -92,8 +92,7 @@ public class ParqueaderoService implements IParqueaderoService {
 		Cobro cobro = null;
 		CobroEntity cobroEntity = this.cobroRepository.findById(idCobro);
 		if(cobroEntity != null) {			
-			cobro = cobroEntity.getCilindraje() != 0 ?  new CobroMoto(cobroEntity):  new CobroCarro(cobroEntity);
-			cobro.setFechaSalida(Calendar.getInstance());			
+			cobro = cobroEntity.getCilindraje() != 0 ?  new CobroMoto(cobroEntity):  new CobroCarro(cobroEntity);						
 			cobro.calcularValorServicio();		
 		    this.cobroRepository.delete(cobroEntity);
 		    CobroEntity cobroEntityFinalizado = new CobroEntity(cobro);
