@@ -8,12 +8,12 @@ import com.ceiba.induccion.parqueadero.model.Servicio;
 
 public class CobroBuilder {
 	
-	private static final Calendar FECHA_ENTRADA = ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss",
+	private Calendar fechaEntradaDefault = ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss",
 			"18-03-2018 01:00:00");
-	private static final Calendar FECHA_SALIDA = ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss",
+	private Calendar fechaSalidaDefault = ParqueaderoUtil.getFechaCalendar("dd-M-yyyy HH:mm:ss",
 			"18-03-2018 06:10:00");
-	private static final String ESTADO = "PENDIENTE";
-	private static final String PLACA = ParqueaderoUtil.PLACA_COMUN;
+	private static final String ESTADO_DEFAULT = "PENDIENTE";
+	private static final String PLACA_DEFAULT = ParqueaderoUtil.PLACA_COMUN;
 
 	private long id;
 	private Calendar fechaEntrada;
@@ -27,10 +27,10 @@ public class CobroBuilder {
 	private int cilindraje;
 
 	public CobroBuilder() {
-		this.fechaEntrada = FECHA_ENTRADA;
-		this.fechaSalida = FECHA_SALIDA;
-		this.estado = ESTADO;
-		this.placa = PLACA;
+		this.fechaEntrada = fechaEntradaDefault;
+		this.fechaSalida = fechaSalidaDefault;
+		this.estado = ESTADO_DEFAULT;
+		this.placa = PLACA_DEFAULT;
 		this.servicio = new ServicioBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO)
 				.withCupoMaximo(20).withTarifaDia(ParqueaderoUtil.TARIFA_DIA_CARRO)
 				.withTarifaHora(ParqueaderoUtil.TARIFA_HORA_CARRO).build();

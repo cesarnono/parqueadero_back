@@ -4,11 +4,11 @@ import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.SolicitudServicio;
 
 public class ServicioBuilder {
-	private static final String DESCRIPCION = "carro";
-	private static final int CUPOMAXIMO = 20;
-	private static final  long TARIFAHORA = 1000;
-	private static final long TARIFADIA = 8000;
-	private static final int CUPODISPONIBLE = 20;
+	private static final String DESCRIPCION_DEFAULT = "carro";
+	private static final int CUPOMAXIMO_DEFAULT = 20;
+	private static final  long TARIFAHORA_DEFAULT = 1000;
+	private static final long TARIFADIA_DEFAULT = 8000;
+	private static final int CUPODISPONIBLE_DEFAULT = 20;
 	
 	private long id;
 	private String descripcion;
@@ -22,11 +22,11 @@ public class ServicioBuilder {
 	
 	
 	public ServicioBuilder () {
-		this.descripcion = DESCRIPCION;
-		this.cupoMaximo = CUPOMAXIMO;
-		this.tarifaHora = TARIFAHORA;
-		this.tarifaDia = TARIFADIA;
-		this.cupoDisponible = CUPODISPONIBLE;
+		this.descripcion = DESCRIPCION_DEFAULT;
+		this.cupoMaximo = CUPOMAXIMO_DEFAULT;
+		this.tarifaHora = TARIFAHORA_DEFAULT;
+		this.tarifaDia = TARIFADIA_DEFAULT;
+		this.cupoDisponible = CUPODISPONIBLE_DEFAULT;
 	}
 	
 	public ServicioBuilder withDescripcion(String descripcion) {
