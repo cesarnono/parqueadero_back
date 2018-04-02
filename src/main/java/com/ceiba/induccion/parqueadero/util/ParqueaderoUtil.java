@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.TiempoServicio;
-import com.ceiba.induccion.parqueadero.service.ParqueaderoService;
 
 public final class ParqueaderoUtil {
 

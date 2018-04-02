@@ -126,15 +126,15 @@ public class ParqueaderoServiceTest {
 		// Arrange
 		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null, ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null,ParqueaderoUtil.getFechaDiferenteDomingoYLunes());
 		Servicio servicio = new ServicioTestDataBuilder().withDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO).build();
-		try {
+		//try {
 			// Action
 			when(servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO)).thenReturn(new ServicioEntity(servicio));			
 			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 			// Assert
 			Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A,servicio.getError());
-		} catch (Exception e) {
+		//} catch (Exception e) {
 		
-		}		
+		//}		
 	}
 	
 	
