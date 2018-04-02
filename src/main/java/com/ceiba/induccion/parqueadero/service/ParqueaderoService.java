@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,9 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Autowired
 	CobroRepository cobroRepository;
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(ParqueaderoService.class);
+	
 	@Override
 	public Servicio verificarDisponibilidadServicio(SolicitudServicio solicitudServicio) {
 		Servicio servicio = null;
@@ -42,6 +46,7 @@ public class ParqueaderoService implements IParqueaderoService {
 		} catch (Exception e) {
 			servicio = new Servicio();
 			servicio.setError(e.getMessage());
+			logger.error(e.getMessage());			
 		}
 		return servicio;
 	}

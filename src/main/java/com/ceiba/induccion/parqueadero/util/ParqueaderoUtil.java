@@ -4,9 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ceiba.induccion.parqueadero.entity.ServicioEntity;
 import com.ceiba.induccion.parqueadero.model.Servicio;
 import com.ceiba.induccion.parqueadero.model.TiempoServicio;
+import com.ceiba.induccion.parqueadero.service.ParqueaderoService;
 
 public final class ParqueaderoUtil {
 
@@ -33,8 +37,7 @@ public final class ParqueaderoUtil {
 	public static  final int CILINDRAJE_MOTO_500 =	500;
 	public static  final int CILINDRAJE_MOTO_550 =	550;
 	public static  final long RECARGO_CILINDRAJE_MOTO_500 =	2000;
-	
-	
+	private static final Logger logger = LoggerFactory.getLogger(ParqueaderoService.class);
 
 	private ParqueaderoUtil() {
 
@@ -78,8 +81,8 @@ public final class ParqueaderoUtil {
 			String dateInString = "22-03-2018 10:20:56";
 			date = sdf.parse(dateInString);
 			
-		} catch (Exception e) {
-		    e.printStackTrace();
+		} catch (Exception e) {	
+			logger.error(e.getMessage());
 		}
 		return date;
 	}
@@ -91,8 +94,8 @@ public final class ParqueaderoUtil {
 			String dateInString = "18-03-2018 10:20:56";
 			date = sdf.parse(dateInString);
 			
-		} catch (Exception e) {
-		    e.printStackTrace();
+		} catch (Exception e) { 		
+			logger.error(e.getMessage());
 		}
 		return date;
 	}
@@ -114,8 +117,8 @@ public final class ParqueaderoUtil {
 			SimpleDateFormat sdf = new SimpleDateFormat(formato);			
 			date = sdf.parse(fecha);
 			
-		} catch (Exception e) {
-		    e.printStackTrace();
+		} catch (Exception e) {		
+			logger.error(e.getMessage());
 		}
 		fechaCalendar.setTime(date);		
 		return fechaCalendar;
