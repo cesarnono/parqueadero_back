@@ -252,5 +252,20 @@ public class ParqueaderoServiceTest {
 		//
 		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == valorServicio);		
 	}
+		
+	@Test
+	public void registrarSalidaCarroCobroPocosMinutosTest() {	
+		CobroCarro cobroCarro = new CobroTestDataBuilder().withFechaSalida(Calendar.getInstance()).withFechaEntrada(ParqueaderoUtil.restarMinutosCalendar(Calendar.getInstance(), -8)).buildCarro();		
+		CobroEntity cobroEntity    = new CobroEntity(cobroCarro);
+		when(cobroRepository.findById(1L)).thenReturn(cobroEntity);		
+		doNothing().when(cobroRepository).delete(cobroEntity);
+		when(cobroRepository.save(cobroEntity)).thenReturn(cobroEntity);
+		when(cobroRepository.actualizarEstadoCobro("FINALIZADA", 1L)).thenReturn(1);
+		when(servicioRepository.aumentarCupoDisponible(1L)).thenReturn(1);
+		//
+		Cobro cobroEsperado = parqueaderoService.registrarSalida(1L);
+		//
+		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getValorServicio() == (ParqueaderoUtil.TARIFA_HORA_CARRO*1));		
+	}
 
 }

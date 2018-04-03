@@ -108,7 +108,11 @@ public final class ParqueaderoUtil {
 		long milisegundosServicio = (fechaSalida.getTimeInMillis() -fechaEntrada.getTimeInMillis());
 		long miliSegundosFraccion = milisegundosServicio % ParqueaderoUtil.MILISEGUNDOS_HORA;
 		if( miliSegundosFraccion !=0 && miliSegundosFraccion >= ParqueaderoUtil.MILISEGUNDOS_MINUTO ) {
-			tiempoServicio.setHoraFraccion(1);
+			tiempoServicio.setHoraFraccion(1); 
+		}
+		if(tiempoServicio.getTotalHoras() == 0 && tiempoServicio.getHoraFraccion() ==1) {
+			tiempoServicio.setTotalHoras(1);
+			tiempoServicio.setHoraFraccion(0);
 		}
 		return tiempoServicio;
 	}
@@ -130,6 +134,11 @@ public final class ParqueaderoUtil {
 	
 	public static Calendar  restarHorasCalendar(Calendar calendar ,int restar) {
 		calendar.add(Calendar.HOUR,restar);
+		return calendar;
+	}
+	
+	public static Calendar  restarMinutosCalendar(Calendar calendar ,int restar) {
+		calendar.add(Calendar.MINUTE,restar);
 		return calendar;
 	}
 
