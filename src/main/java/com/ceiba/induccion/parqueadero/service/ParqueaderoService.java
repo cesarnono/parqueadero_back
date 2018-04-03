@@ -30,35 +30,44 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Autowired
 	CobroRepository cobroRepository;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ParqueaderoService.class);
-	
+
 	@Override
 	public Servicio verificarDisponibilidadServicio(SolicitudServicio solicitudServicio) {
 		Servicio servicio = null;
 		try {
 			if (solicitudServicio != null) {
 				servicio = this.verificarCupo(solicitudServicio.getTipo());
-				this.verificarRestriccionAccesoPorPlaca(solicitudServicio.getPlaca(), solicitudServicio.getFecha());
+				if (solicitudServicio.getPlaca() != null) {
+					this.verificarRestriccionAccesoPorPlaca(solicitudServicio.getPlaca(), solicitudServicio.getFecha());
+				}
 				servicio.setSolicitudServicio(solicitudServicio);
+			}
+			if (servicio == null) {
+				servicio = new Servicio();
+				servicio.setError(ParqueaderoUtil.SERVICIO_NO_ENCONTRADO);
 			}
 
 		} catch (Exception e) {
 			servicio = new Servicio();
 			servicio.setError(e.getMessage());
-			logger.error(e.getMessage());			
+			logger.error(e.getMessage());
 		}
 		return servicio;
 	}
 
-	@Override	
+	@Override
 	@Transactional
 	public CobroEntity registrarEntrada(Servicio servicio) {
-		CobroEntity cobroEntity = crearCobroEntity(servicio);
+		CobroEntity cobroEntity = null;
+		servicio = this.verificarDisponibilidadServicio(servicio != null ? servicio.getSolicitudServicio() : null);
+		if (servicio != null && servicio.getError() != null) {
+			return this.crearCobroEntityConError(servicio.getError());
+		}
+		cobroEntity = crearCobroEntity(servicio);
 		if (cobroEntity == null) {
-			cobroEntity = new CobroEntity();
-			cobroEntity.setError(ParqueaderoUtil.ERROR_REGISTRAR_ENTRADA);
-			return cobroEntity;
+			return this.crearCobroEntityConError(ParqueaderoUtil.ERROR_REGISTRAR_ENTRADA);
 		}
 		cobroRepository.save(cobroEntity);
 		servicioRepository.descontarCupoDisponible(cobroEntity.getServicio().getId());
@@ -76,11 +85,14 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	private Cobro crearCobroEntradaParqueadero(Servicio servicio) {
 		Cobro cobro = null;
-		if (servicio != null && servicio.getSolicitudServicio().getCilindraje() == null) {
-			cobro = new CobroCarro(-1,servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
+		if (servicio != null && servicio.getSolicitudServicio() != null
+				&& servicio.getSolicitudServicio().getCilindraje() == null) {
+			cobro = new CobroCarro(-1, servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
 					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
-		} else if (servicio != null && servicio.getSolicitudServicio().getPlaca() == null) {
-			cobro = new CobroMoto(-1,servicio.getSolicitudServicio().getPlaca(),Integer.parseInt(servicio.getSolicitudServicio().getCilindraje()), Calendar.getInstance(), null,
+		} else if (servicio != null && servicio.getSolicitudServicio() != null
+				&& servicio.getSolicitudServicio().getCilindraje() != null) {
+			cobro = new CobroMoto(-1, servicio.getSolicitudServicio().getPlaca(),
+					Integer.parseInt(servicio.getSolicitudServicio().getCilindraje()), Calendar.getInstance(), null,
 					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
 		}
 		return cobro;
@@ -88,19 +100,19 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Override
 	@Transactional
-	public Cobro registrarSalida(long idCobro) {			
+	public Cobro registrarSalida(long idCobro) {
 		Cobro cobro = null;
 		CobroEntity cobroEntity = this.cobroRepository.findById(idCobro);
-		if(cobroEntity != null) {			
-			cobro = cobroEntity.getCilindraje() != 0 ?  new CobroMoto(cobroEntity):  new CobroCarro(cobroEntity);						
-			cobro.calcularValorServicio();		
-		    this.cobroRepository.delete(cobroEntity);
-		    CobroEntity cobroEntityFinalizado = new CobroEntity(cobro);
-		    this.cobroRepository.save(cobroEntityFinalizado);	
-		    this.cobroRepository.actualizarEstadoCobro(ParqueaderoUtil.COBRO_FINALIZADO, cobroEntityFinalizado.getId());
-		    this.servicioRepository.aumentarCupoDisponible(cobroEntityFinalizado.getServicio().getId());
-		    cobro.setId(cobroEntityFinalizado.getId());
-		}		
+		if (cobroEntity != null) {
+			cobro = cobroEntity.getCilindraje() != 0 ? new CobroMoto(cobroEntity) : new CobroCarro(cobroEntity);
+			cobro.calcularValorServicio();
+			this.cobroRepository.delete(cobroEntity);
+			CobroEntity cobroEntityFinalizado = new CobroEntity(cobro);
+			this.cobroRepository.save(cobroEntityFinalizado);
+			this.cobroRepository.actualizarEstadoCobro(ParqueaderoUtil.COBRO_FINALIZADO, cobroEntityFinalizado.getId());
+			this.servicioRepository.aumentarCupoDisponible(cobroEntityFinalizado.getServicio().getId());
+			cobro.setId(cobroEntityFinalizado.getId());
+		}
 		return cobro;
 	}
 
@@ -127,9 +139,15 @@ public class ParqueaderoService implements IParqueaderoService {
 		}
 		return new Servicio(servicioEntity);
 	}
-	
+
 	@Override
 	public List<CobroEntity> consultarCobros(String estado) {
 		return this.cobroRepository.findAllByEstado(estado);
+	}
+
+	public CobroEntity crearCobroEntityConError(String error) {
+		CobroEntity cobroEntity = new CobroEntity();
+		cobroEntity.setError(error);
+		return cobroEntity;
 	}
 }

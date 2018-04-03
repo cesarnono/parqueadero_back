@@ -38,16 +38,16 @@ public class ParqueaderoApplication {
 				servicioRepository.save(servicioMoto);
 			}
 			
-		   servicioCarro = servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO);
-		   if(servicioCarro != null) {
+		   /*servicioCarro = servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO);
+		   if(servicioCarro != null) {			   
 			   CobroCarro cobroCarro = new CobroBuilder()
 						.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5))
 						.withFechaSalida(null).whithEstado("PENDIENTE").withServicio(new Servicio(servicioCarro))
 						.buildCarro();
-
 				CobroEntity cobroEntity = new CobroEntity(cobroCarro);
 				cobroRepository.save(cobroEntity);
-		   }
+				servicioRepository.descontarCupoDisponible(servicioCarro.getId());
+		   }*/
 			
 		};
 

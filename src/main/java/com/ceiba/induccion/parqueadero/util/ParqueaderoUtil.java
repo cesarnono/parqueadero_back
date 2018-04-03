@@ -38,6 +38,8 @@ public final class ParqueaderoUtil {
 	public static  final long RECARGO_CILINDRAJE_MOTO_500 =	2000;
 	private static final Logger logger = LoggerFactory.getLogger(ParqueaderoUtil.class);
 	public static  final long MILISEGUNDOS_MINUTO = 60000;
+	public static final String SERVICIO_NO_ENCONTRADO = "Servicio no encontrado";
+	
 
 	private ParqueaderoUtil() {
 
