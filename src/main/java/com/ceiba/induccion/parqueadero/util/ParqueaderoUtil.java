@@ -112,6 +112,7 @@ public final class ParqueaderoUtil {
 		}
 		if(tiempoServicio.getTotalHoras() == 0 && tiempoServicio.getHoraFraccion() ==1) {
 			tiempoServicio.setTotalHoras(1);
+			tiempoServicio.setHoras(1);
 			tiempoServicio.setHoraFraccion(0);
 		}
 		return tiempoServicio;

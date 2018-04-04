@@ -142,7 +142,7 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Override
 	public List<CobroEntity> consultarCobros(String estado) {
-		return this.cobroRepository.findAllByEstado(estado);
+		return this.cobroRepository.findAllByEstadoOrderByFechaEntradaDesc(estado);
 	}
 
 	public CobroEntity crearCobroEntityConError(String error) {

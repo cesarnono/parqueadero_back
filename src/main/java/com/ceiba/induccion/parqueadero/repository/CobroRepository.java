@@ -15,7 +15,7 @@ public interface CobroRepository extends JpaRepository<CobroEntity, Long> {
 	
 	public  CobroEntity findById(long id);
 	
-	public List<CobroEntity> findAllByEstado(String estado);
+	public List<CobroEntity> findAllByEstadoOrderByFechaEntradaDesc(String estado);
 	
 	@Modifying
 	@Query("update CobroEntity c set c.estado = ?1 where c.id = ?2")
