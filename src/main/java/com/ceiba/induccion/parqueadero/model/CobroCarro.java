@@ -12,17 +12,16 @@ public class CobroCarro extends Cobro {
 	}
 
 	public CobroCarro(long id, String placa, Calendar fechaEntrada, Calendar fechaSalida, String estado,
-			long valorServicio, long tiempoServicio, String descripcionTiempoServicio, Servicio servicio) {
+			long valorServicio, Servicio servicio) {
 
-		super(id, fechaEntrada, fechaSalida, estado, valorServicio, tiempoServicio, descripcionTiempoServicio,
+		super(id, fechaEntrada, fechaSalida, estado, valorServicio, 
 				servicio);
 		this.placa = placa;
 	}
 
 	public CobroCarro(CobroEntity cobroEntity) {
 		super(cobroEntity.getId(), cobroEntity.getFechaEntrada(), cobroEntity.getFechaSalida(), cobroEntity.getEstado(),
-				cobroEntity.getValorServicio(), cobroEntity.getTiempoServicio(),
-				cobroEntity.getDescripcionTiempoServicio(), new Servicio(cobroEntity.getServicio()));
+				cobroEntity.getValorServicio(),  new Servicio(cobroEntity.getServicio()));
 		this.placa = cobroEntity.getPlaca();
 	}
 

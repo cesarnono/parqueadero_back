@@ -85,12 +85,12 @@ public class ParqueaderoService implements IParqueaderoService {
 		if (servicio != null && servicio.getSolicitudServicio() != null
 				&& servicio.getSolicitudServicio().getCilindraje() == null) {
 			cobro = new CobroCarro(-1, servicio.getSolicitudServicio().getPlaca(), Calendar.getInstance(), null,
-					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
+					ParqueaderoUtil.COBRO_PENDIENTE, 0,  servicio);
 		} else if (servicio != null && servicio.getSolicitudServicio() != null
 				&& servicio.getSolicitudServicio().getCilindraje() != null) {
 			cobro = new CobroMoto(-1, servicio.getSolicitudServicio().getPlaca(),
 					Integer.parseInt(servicio.getSolicitudServicio().getCilindraje()), Calendar.getInstance(), null,
-					ParqueaderoUtil.COBRO_PENDIENTE, 0, 0, null, servicio);
+					ParqueaderoUtil.COBRO_PENDIENTE, 0,  servicio);
 		}
 		return cobro;
 	}

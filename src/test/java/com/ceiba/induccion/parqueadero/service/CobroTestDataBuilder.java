@@ -73,12 +73,12 @@ public class CobroTestDataBuilder {
 
 	public CobroCarro buildCarro() {
 		return new CobroCarro(this.id, this.placa, this.fechaEntrada, this.fechaSalida, this.estado, this.valorServicio,
-				this.tiempoServicioHoras, this.descripcionTiempoServicio, this.servicio);
+				 this.servicio);
 	}
 
 	public CobroMoto buildMoto() {
 		return new CobroMoto(this.id, this.placa, this.cilindraje, this.fechaEntrada, this.fechaSalida, this.estado,
-				this.valorServicio, this.tiempoServicioHoras, this.descripcionTiempoServicio, this.servicio);
+				this.valorServicio, this.servicio);
 	}
 
 }

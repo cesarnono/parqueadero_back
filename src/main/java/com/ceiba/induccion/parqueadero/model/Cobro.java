@@ -20,14 +20,12 @@ public class Cobro {
 	}
 
 	public Cobro(long id, Calendar fechaEntrada, Calendar fechaSalida, String estado, long valorServicio,
-			long tiempoServicio, String descripcionTiempoServicio, Servicio servicio) {
+			 Servicio servicio) {
 		super();
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.estado = estado;
-		this.valorServicio = valorServicio;
-		this.tiempoServicioHoras = tiempoServicio;
-		this.descripcionTiempoServicio = descripcionTiempoServicio;
+		this.valorServicio = valorServicio;		
 		this.servicio = servicio;
 		this.id = id;	
 	}
@@ -120,7 +118,7 @@ public class Cobro {
 		
 		long horasAcumuladasDias = (tiempoServicio.getDias() * ParqueaderoUtil.DIA_EN_HORAS);
 		if (tiempoServicio.getHoraFraccion() != 0 &&
-				tiempoServicio.getTotalHoras() >horasAcumuladasDias	&& tiempoServicio.getTotalHoras() < horasAcumuladasDias	+ParqueaderoUtil.NUEVE_HORAS) {
+				tiempoServicio.getTotalHoras() >= horasAcumuladasDias	&& tiempoServicio.getTotalHoras() < horasAcumuladasDias	+ParqueaderoUtil.NUEVE_HORAS) {
 			valorServicio = valorServicio + (tiempoServicio.getHoraFraccion() * this.getServicio().getTarifaHora());
 		}
 		return valorServicio;

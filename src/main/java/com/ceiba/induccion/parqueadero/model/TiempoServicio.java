@@ -44,13 +44,13 @@ public class TiempoServicio {
 		this.horaFraccion = horaFraccion;
 	}
 
-	public String obtenerTiempoFacturado() {
+	public String obtenerTiempoFacturado() {		
 		StringBuilder tiempoFacturado = new StringBuilder();
 		if (dias != 0) {
 			tiempoFacturado.append(dias + " Dia(s)  ");
 		}
-		if (horas != 0) {
-			tiempoFacturado.append((horas + horaFraccion) + " Hora(s)");
+		if (this.horas+this.horaFraccion != 0) {
+			tiempoFacturado.append((this.horas+this.horaFraccion) + " Hora(s)");
 		}
 
 		return tiempoFacturado.toString();
