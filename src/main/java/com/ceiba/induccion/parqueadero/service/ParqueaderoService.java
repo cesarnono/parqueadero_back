@@ -35,7 +35,8 @@ public class ParqueaderoService implements IParqueaderoService {
 
 	@Override
 	public Servicio verificarDisponibilidadServicio(SolicitudServicio solicitudServicio) {
-		Servicio servicio = null;
+		Servicio servicio = new Servicio();
+		servicio.setError(ParqueaderoUtil.SERVICIO_NO_ENCONTRADO);
 		try {
 			if (solicitudServicio != null) {
 				servicio = this.verificarCupo(solicitudServicio.getTipo());
@@ -43,11 +44,7 @@ public class ParqueaderoService implements IParqueaderoService {
 					this.verificarRestriccionAccesoPorPlaca(solicitudServicio.getPlaca(), solicitudServicio.getFecha());
 				}
 				servicio.setSolicitudServicio(solicitudServicio);
-			}
-			if (servicio == null) {
-				servicio = new Servicio();
-				servicio.setError(ParqueaderoUtil.SERVICIO_NO_ENCONTRADO);
-			}
+			}		
 
 		} catch (Exception e) {
 			servicio = new Servicio();
@@ -121,7 +118,6 @@ public class ParqueaderoService implements IParqueaderoService {
 		servicio = this.consultarServicioPorTipo(tipoServicio);
 		if (servicio.getCupoDisponible() == 0)
 			throw new ParqueaderoException(ParqueaderoUtil.CUPO_NO_DISPONIBLE);
-
 		return servicio;
 	}
 
