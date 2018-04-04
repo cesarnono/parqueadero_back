@@ -51,54 +51,28 @@ public class ServicioEntity implements Serializable {
 
 	public long getId() {
 		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	}	
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+	
 
 	public int getCupoMaximo() {
 		return cupoMaximo;
-	}
-
-	public void setCupoMaximo(int cupoMaximo) {
-		this.cupoMaximo = cupoMaximo;
-	}
+	}	
 
 	public int getCupoDisponible() {
 		return cupoDisponible;
-	}
-
-	public void setCupoDisponible(int cupoDisponible) {
-		this.cupoDisponible = cupoDisponible;
-	}
+	}	
 
 	public long getTarifaHora() {
 		return tarifaHora;
-	}
-
-	public void setTarifaHora(int tarifaHora) {
-		this.tarifaHora = tarifaHora;
-	}
+	}	
 
 	public long getTarifaDia() {
 		return tarifaDia;
-	}
-
-	public void setTarifaDia(int tarifaDia) {
-		this.tarifaDia = tarifaDia;
 	}
 
 }
