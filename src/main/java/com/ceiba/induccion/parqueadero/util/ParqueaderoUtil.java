@@ -16,7 +16,6 @@ public final class ParqueaderoUtil {
 	private static ParqueaderoUtil parqueaderoUtil;
 	public static final String CUPO_NO_DISPONIBLE = "No existe cupo disponible en el momento";
 	public static final String NO_ACCESO_PLACA_A = "Los dias Domingos y Lunes no se le permite acceso a las placas que empiezan por A";
-	public static final String NO_ENCONTRADO_SERVICIO = "Servicio no encontrado";
 	public static final String SERVICIO_PARQUEO_CARRO = "carro";
 	public static final String SERVICIO_PARQUEO_MOTO = "moto";
 	public static final String PLACA_EMPIEZA_CON_A = "A25-OP1";

@@ -135,7 +135,7 @@ public class ParqueaderoService implements IParqueaderoService {
 	public Servicio consultarServicioPorTipo(String tipo) throws ParqueaderoException {
 		ServicioEntity servicioEntity = servicioRepository.findByDescripcion(tipo);
 		if (servicioEntity == null) {
-			throw new ParqueaderoException(ParqueaderoUtil.NO_ENCONTRADO_SERVICIO);
+			throw new ParqueaderoException(ParqueaderoUtil.SERVICIO_NO_ENCONTRADO);
 		}
 		return new Servicio(servicioEntity);
 	}
