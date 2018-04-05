@@ -78,7 +78,7 @@ public class CobroTestDataBuilder {
 
 	public CobroMoto buildMoto() {
 		return new CobroMoto(this.id, this.placa, this.cilindraje, this.fechaEntrada, this.fechaSalida, this.estado,
-				this.valorServicio, this.servicio);
+				this.servicio);
 	}
 
 }

@@ -15,9 +15,9 @@ public class CobroMoto extends Cobro {
 		super();
 	}
     
-	public CobroMoto(long id,String placa,int cilindraje,Calendar fechaEntrada, Calendar fechaSalida, String estado, long valorServicio, Servicio servicio) {
+	public CobroMoto(long id,String placa,int cilindraje,Calendar fechaEntrada, Calendar fechaSalida, String estado, Servicio servicio) {
     	
-    	 super(id,fechaEntrada,fechaSalida,estado,valorServicio,servicio);
+    	 super(id,fechaEntrada,fechaSalida,estado,0,servicio);
     	 this.placa = placa;
     	 this.cilindraje = cilindraje;
     }

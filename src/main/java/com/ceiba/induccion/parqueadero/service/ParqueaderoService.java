@@ -90,7 +90,7 @@ public class ParqueaderoService implements IParqueaderoService {
 				&& servicio.getSolicitudServicio().getCilindraje() != null) {
 			cobro = new CobroMoto(-1, servicio.getSolicitudServicio().getPlaca(),
 					Integer.parseInt(servicio.getSolicitudServicio().getCilindraje()), Calendar.getInstance(), null,
-					ParqueaderoUtil.COBRO_PENDIENTE, 0,  servicio);
+					ParqueaderoUtil.COBRO_PENDIENTE,  servicio);
 		}
 		return cobro;
 	}
