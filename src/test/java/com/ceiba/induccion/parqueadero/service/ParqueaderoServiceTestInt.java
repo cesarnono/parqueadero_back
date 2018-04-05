@@ -33,7 +33,7 @@ public class ParqueaderoServiceTestInt {
 	ParqueaderoService parqueaderoService;
 
 	@Autowired
-	CobroRepository cobroRepository;	
+	CobroRepository cobroRepository;
 
 	@Before
 	public void setup() {
@@ -57,13 +57,9 @@ public class ParqueaderoServiceTestInt {
 		SolicitudServicio solicitudServicio = new SolicitudServicio("125-OP1", null,
 				ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null, ParqueaderoUtil.getFecha());
 		Servicio servicioEsperado = null;
+		// Action
+		servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
 
-		try {
-			// Action
-			servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
-		} catch (Exception e) {
-
-		}
 		// Assert
 		Assert.assertTrue(servicioEsperado != null && servicioEsperado.getError() == null);
 	}
@@ -74,28 +70,24 @@ public class ParqueaderoServiceTestInt {
 		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null,
 				ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null, ParqueaderoUtil.getFechaDiferenteDomingoYLunes());
 		Servicio servicio = null;
-		try {
-			// Action
-			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
-			// Assert
-			Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A, servicio.getError());
-		} catch (Exception e) {
 
-		}
+		// Action
+		servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
+		// Assert
+		Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A, servicio.getError());
+
 	}
-	
+
 	@Test
 	public void verificarDisponibilidadServicioMotoTest() {
 		// Arrange
 		SolicitudServicio solicitudServicio = new SolicitudServicio("1A5-OP1", null,
 				ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null, ParqueaderoUtil.getFecha());
 		Servicio servicioEsperado = null;
-		try {
-			// Action
-			servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
-		} catch (Exception e) {
 
-		}
+		// Action
+		servicioEsperado = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
+
 		// Assert
 		Assert.assertNotNull(servicioEsperado);
 	}
@@ -106,14 +98,12 @@ public class ParqueaderoServiceTestInt {
 		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null,
 				ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null, ParqueaderoUtil.getFechaDiferenteDomingoYLunes());
 		Servicio servicio;
-		try {
-			// Action
-			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
-			// Assert
-			Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A, servicio.getError());
-		} catch (Exception e) {
 
-		}
+		// Action
+		servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
+		// Assert
+		Assert.assertEquals(ParqueaderoUtil.NO_ACCESO_PLACA_A, servicio.getError());
+
 	}
 
 	@Test
@@ -122,18 +112,16 @@ public class ParqueaderoServiceTestInt {
 		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_EMPIEZA_CON_A, null,
 				ParqueaderoUtil.SERVICIO_PARQUEO_MOTO, null, ParqueaderoUtil.getFechaDomingoOLunes());
 		Servicio servicio = null;
-		try {
-			// Action
-			servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
-			// Assert
-			Assert.assertTrue(servicio != null && servicio.getError() == null);
-		} catch (Exception e) {
 
-		}
+		// Action
+		servicio = parqueaderoService.verificarDisponibilidadServicio(solicitudServicio);
+		// Assert
+		Assert.assertTrue(servicio != null && servicio.getError() == null);
+
 	}
 
 	@Test
-	public void registrarEntradaCarroTest() {		
+	public void registrarEntradaCarroTest() {
 		System.out.println("ejecutando  registrarEntradaCarroTest");
 		SolicitudServicio solicitudServicio = new SolicitudServicio(ParqueaderoUtil.PLACA_COMUN, null,
 				ParqueaderoUtil.SERVICIO_PARQUEO_CARRO, null, ParqueaderoUtil.getFecha());
@@ -165,8 +153,8 @@ public class ParqueaderoServiceTestInt {
 				.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO);
 		Assert.assertTrue(cobroEsperado != null && cobroEsperado.getId() != 0
 				&& ParqueaderoUtil.PLACA_COMUN_MOTO.equals(cobroEsperado.getPlaca())
-		     	&& servicioEntity2.getCupoDisponible() == (servicioEntity2.getCupoMaximo() - 1));
-				
+				&& servicioEntity2.getCupoDisponible() == (servicioEntity2.getCupoMaximo() - 1));
+
 	}
 
 	@Test
@@ -198,27 +186,23 @@ public class ParqueaderoServiceTestInt {
 				&& ParqueaderoUtil.COBRO_FINALIZADO.equals(cobroEntitySalida.getEstado())
 				&& cobroRepository.findById(cobroEntradaEntity.getId()) == null);
 	}
-	
-	
+
 	private long registrarEntradaCarroBD() {
 		ServicioEntity servicioCarro = servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_CARRO);
 		CobroCarro cobroCarro = new CobroTestDataBuilder()
-				.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5))
-				.withFechaSalida(null).whithEstado("PENDIENTE").withServicio(new Servicio(servicioCarro))
-				.buildCarro();
+				.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5)).withFechaSalida(null)
+				.whithEstado("PENDIENTE").withServicio(new Servicio(servicioCarro)).buildCarro();
 
 		CobroEntity cobroEntity = new CobroEntity(cobroCarro);
 		cobroRepository.save(cobroEntity);
 		return cobroEntity.getId();
-	}	
-	
+	}
+
 	private long registrarEntradaMotoBD() {
 		ServicioEntity servicioMoto = servicioRepository.findByDescripcion(ParqueaderoUtil.SERVICIO_PARQUEO_MOTO);
-		CobroMoto cobroMoto = new CobroTestDataBuilder().withPlaca(ParqueaderoUtil.PLACA_COMUN_MOTO)
-				.withCilindraje(200)
-				.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5))
-				.withFechaSalida(null).whithEstado("PENDIENTE").withServicio(new Servicio(servicioMoto))
-				.buildMoto();
+		CobroMoto cobroMoto = new CobroTestDataBuilder().withPlaca(ParqueaderoUtil.PLACA_COMUN_MOTO).withCilindraje(200)
+				.withFechaEntrada(ParqueaderoUtil.restarHorasCalendar(Calendar.getInstance(), -5)).withFechaSalida(null)
+				.whithEstado("PENDIENTE").withServicio(new Servicio(servicioMoto)).buildMoto();
 
 		CobroEntity cobroEntity2 = new CobroEntity(cobroMoto);
 		cobroRepository.save(cobroEntity2);
